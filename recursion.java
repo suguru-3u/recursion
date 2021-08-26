@@ -186,4 +186,111 @@ class Main{
 }
 
 
+class Main{
+
+    public static void main(String[] args){
+        System.out.println(lengthString("hello"));
+        System.out.println(mergeString("abc","def"));
+    }
+
+    // 例題1
+    // 文字列が与えられるので、再帰を用いて、文字列の長さをカウントする、lengthStringという関数を作成してください。
+
+    // "hello" -> 5
+    // "helloworld" -> 10
+
+    // abcde
+    // 1 + bcde
+    // 1 + 1 + cde
+    // 1 + 1 + 1 + de
+    // 1 + 1 + 1 + 1 + e
+    // 1 + 1 + 1 + 1 + 1 + 0
+    // 5
+    // のような処理を考えてみましょう。
+
+    public static int lengthString(String n){
+        if(n.length() <= 0){
+            return 0;
+        }
+        return 1 + lengthString(n.substring(1));
+    }
+
+    // 例題2
+    // 同じサイズの文字列s1、s2が与えられるので、それぞれの文字を1->2の順番で交互に組み合わせる、mergeStringという関数を再帰を使って作成してください。
+
+    // (abc, def)
+    // ad + (bc, ef)
+    // ad + be + (c,f)
+    // ad + be + cf + ( , )
+    // adbecf
+    // のような処理を考えてみましょう。
+
+    // "abc","def" → adbecf
+    // "hello","world" → hweolrllod
+
+    public static String mergeString(String n ,String m){
+        if(n.length() <= 0 || m.length() <= 0){
+            return "";
+        }
+        return n.charAt(0) + "" + m.charAt(0) + mergeString(n.substring(1), m.substring(1) );
+    }
+
+    //  if (string1.length() <= 0 || string2.length() <= 0) {
+    //         return "";
+    //     }
+    //     // ""を混ぜることでchar型をString型にする
+    //     return string1.charAt(0) + "" + string2.charAt(0) + mergeString(string1.substring(1),string2.substring(1));
+
+}
+
+// パスカルの三角形
+// easy
+// 図のように三角数の数列があります。天才 Pascal は小学生の時にこの並びを見て規則的な発見をしました。
+// 整数 x が与えられるので、x 番目の三角形に含まれるドットの数を返す、numberOfDots という関数を再帰を使って作成してください。
+
+class Solution{
+    public static int numberOfDots(int x){
+        //ここから書きましょう
+        double Exponentiation = numberOfExponentiation(x);
+
+        Exponentiation += 1;
+
+        return (int)Math.floor(x * Exponentiation);
+
+    }
+
+    public static double numberOfExponentiation(int x){
+        if(x <= 1){
+            return 0;
+        } 
+        return 0.5 + numberOfExponentiation(x - 1);
+    }
+
+     public static int numberOfDots(int x){
+        // xが1番目になったときに再帰終了
+        if (x <= 1) return 1;
+        // x番目で加わるドット数 + x-1番目までのドット数
+        return x + numberOfDots(x-1);
+    }
+}
+
+// 正方形の合計面積
+// easy
+// 1 辺 1 の正方形をスタートとして、1 辺の長さ、正方形の個数を列ごとに増加させていきます。
+// i 列の中には 1 辺 i の正方形が i 個あり、i 列に含まれる正方形の合計面積を計測します。
+// 自然数 x が与えられるので、1 列から x 列までに含まれる全ての正方形の面積の合計値を返す、
+// totalSquareArea という関数を再帰によって作成してください。総和や 3 乗を計算するために必要な他の関数は用いて構いません。
+
+class Solution{
+    public static int totalSquareArea(int x){
+        //ここから書きましょう
+        if(x <= 0){
+            return 0;
+        }
+        return (x * x) * x + totalSquareArea(x -1);
+    }
+}
+
+
+
 
