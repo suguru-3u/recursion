@@ -292,5 +292,92 @@ class Solution{
 }
 
 
+class Main {
+
+    // 例題1
+    // 文字列s1とs2が与えられるので、共通の接頭辞を返す、commonPrefixという関数を作成
+    public static String commonPrefix(String s1, String s2) {
+        return commonPrefixHelper(s1, s2, "", 0);
+    }
+
+    public static String commonPrefixHelper(String s1, String s2, String total, int index) {
+        if (index >= s1.length() || index >= s2.length() || s1.charAt(index) != s2.charAt(index)) {
+            return total;
+        }
+
+        return commonPrefixHelper(s1,s2,total + s1.charAt(index),index + 1);
+    }
+
+
+    // 例題2 【チャレンジ問題】
+    // 整数が与えられるので、負の数になるまで5を引いていき、その後5を足していく、reduceByFiveという関数を出力してください。関数でそれぞれの値を出力
+
+    // 数値が減少していき、元の数値と等しくなる時がベースケースとなり、数値を比較する必要があるので、与えられた数値とは異なるパラメータcurr(current numberの略)を追加します。
+    // また負の数に到達した後に、今までとは異なる処理を"継続的に"行う必要があるため、flagを使ってブーリアン値で状況を追跡します。(currが0以上になったとしても、今までとは異なる処理を行う必要があるため。)
+
+    public static String reduceByFive(int number) {
+        return reduceByFiveHelper(number, number, false);
+    }
+
+    public static String reduceByFiveHelper(int number, int curr, boolean flag) {
+        if (number == curr && flag) {
+            System.out.println(curr);
+            return "";
+        }
+
+        if (curr < 0 || flag) {
+            System.out.println(curr);
+            return reduceByFiveHelper(number, curr + 5, true);
+        }
+        
+        System.out.println(curr);
+        return reduceByFiveHelper(number, curr - 5, flag);
+    }
+
+
+    public static void main(String[] args){
+
+        // 例題1
+        // "abc"
+        System.out.println(commonPrefix("abcdefg","abcxyz"));
+        // "auto"
+        System.out.println(commonPrefix("autopilot","autobiography"));
+        // "a"
+        System.out.println(commonPrefix("aaa","a"));
+
+
+        // 例題2
+        // 16,11,6,1,-4,1,6,11,16
+        reduceByFive(16);
+
+        // 9,4,-1,4,9
+        reduceByFive(9);
+
+        // 5,0,-5,0,5
+        reduceByFive(5);
+    }
+}
+
+// 正方形の合計枚数
+// easy
+// Thomas は図画工作で色紙を使って飛行機を作成しています。
+// 色紙にはさまざまなサイズが用意されており、選択することができます。
+// 今、Thomas は長方形の色紙からできるだけ大きく、かつ同じ大きさの正方形を何枚も切り取ることを計画しています。
+// 長方形の大きさとして、縦 x、横 yが与えられるので、正方形の合計枚数を返す、countSquare という関数を作成してください。
+
+class Solution{
+    public static int countSquare(int x,int y){
+        //ここから書きましょう
+        return (x * y) / countSquareHelper(x,y);
+    }
+
+    public static int countSquareHelper(int x ,int y){
+        if(y == 0){
+            return x * x;
+        }
+        return countSquareHelper(y,x % y );
+    }
+}
+
 
 
