@@ -379,5 +379,26 @@ class Solution{
     }
 }
 
+// 正方形の合計枚数
+// easy
+// Thomas は図画工作で色紙を使って飛行機を作成しています。
+// 色紙にはさまざまなサイズが用意されており、選択することができます。
+// 今、Thomas は長方形の色紙からできるだけ大きく、かつ同じ大きさの正方形を何枚も切り取ることを計画しています。
+// 長方形の大きさとして、縦 x、横 yが与えられるので、正方形の合計枚数を返す、countSquare という関数を作成してください。
+
+class Solution{
+    public static int countSquare(int x,int y){
+        //ここから書きましょう
+        return (x * y) / countSquareHelper(x,y);
+    }
+
+    public static int countSquareHelper(int x ,int y){
+        if(y == 0){
+            return x * x;
+        }
+        return countSquareHelper(y,x % y );
+    }
+}
+
 
 
