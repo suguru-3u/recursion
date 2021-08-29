@@ -401,4 +401,70 @@ class Solution{
 }
 
 
+class Main {
+
+    // 例題 【チャレンジ問題】
+    // 今n段の階段があり、この階段では1ステップで1段、および2段しか登ることができません。
+    // 階段の頂上まで到達するまでのステップが何通りあるか数えるnumberOfWaysという関数を作成してください。
+
+    // 例えば、n=3の時、頂上に到達するには、1+1+1、1+2、2+1の3通りが存在します。
+    // n=4の時、1+1+1+1、1+2+1、1+1+2、2+1+1、2+2の5通りが存在します。
+
+    public static void main(String[] args) {
+
+        // 5 → 8
+        System.out.println(numberOfWays(5));
+        // 10 → 89
+        // 20 → 10946
+
+
+    }
+    
+    
+    public static int numberOfWays(int n){
+        if(n == 1)return 1;
+        if(n == 2)return 2;
+
+        return numberOfWays(n - 1) + numberOfWays(n - 2);
+
+    }
+
+
+}
+
+// 3 の累乗 n が与えられるので、整数 n を 3 で除算できる回数を返す、divideBy3Count という関数を作成してください。
+class Solution{
+    public static int divideBy3Count(int n){
+        //ここから書きましょう
+        return divideBy3CountHelper(n,0) ;
+    }
+
+    public static int divideBy3CountHelper(int n ,int count){
+        if(n/3 < 1)return count;
+
+        return divideBy3CountHelper(n / 3, count + 1);
+    }
+}
+
+// 約数
+// easy
+// 天才小学生の Julia ちゃんは学校で出された約数を求める問題に対して 1 問 1 問素因数分解するのが面倒に感じたため、独自でプログラムを開発することにしました。
+// ある数値 number が与えられるので、number の約数を小さい順に返す divisor という関数を再帰を使って定義してください。
+class Solution{
+    public static String divisor(int number){
+        //ここから書きましょう
+        return divisorHelper(number,1);
+    }
+
+    public static String divisorHelper(int n, int m){
+        if(m == n)return String.valueOf(m);
+        if(n % m == 0){
+            return String.valueOf(m) + "-" + divisorHelper(n  ,m + 1);
+        }
+        return divisorHelper(n , m + 1);
+    }
+}
+
+
+
 
