@@ -466,5 +466,110 @@ class Solution{
 }
 
 
+// 投資の計算
+// easy
+// Kathy は現在価格 goalMoney ドルの土地の購入するために、年利 interest（0 < interest < 100）%の金融商品に capitalMoney ドル投資しようと計画しています。
+// goalMoney, interest, capitalMoney が与えられるので、何年後に土地の購入ができるかを返す、howLongToReachFundGoal という関数を再帰によって作成してください。
+// なお、毎年得られた利益は同商品に再投資するとし、土地の価格は経過する年数が偶数（0 を含む）の時は 2%、奇数の時は 3% 上昇します。
+// また、人の寿命は 80 歳未満と仮定し、80 年以上かかる時は 80 としてください
 
+class Solution{
+    public static int howLongToReachFundGoal(int capitalMoney,int goalMoney,int interest){
+        //ここから書きましょう
+        return howLongToReachFundGoalHelper(capitalMoney,goalMoney,interest,0);
+    }
 
+    public static int howLongToReachFundGoalHelper(
+        double capitalMoney,double goalMoney,double interest,int age){
+
+            if(goalMoney < capitalMoney || age == 80)return age;
+            
+            if(age % 2 == 0)goalMoney *= 1.02;
+            else goalMoney *= 1.03;
+            
+            capitalMoney *= interest / 100 + 1;
+
+            return howLongToReachFundGoalHelper(capitalMoney,goalMoney,interest,age + 1);
+
+    }
+}
+
+class Main{
+
+    // 自然数digitsが与えられるので、桁数を分解して足し合わせる、splitAndAddという関数を末尾再帰を使って作成
+
+    public static int splitAndAdd(int digits){
+        return splitAndAddHelper(digits, 0);
+    }
+
+    public static int splitAndAddHelper(int digits, int total) {
+        if (digits < 10) return digits + total;
+        return splitAndAddHelper(digits / 10, total + digits % 10);
+    }
+
+    public static void main(String[] args){
+
+        // 10
+        System.out.println(splitAndAdd(19));
+
+        // 23
+        System.out.println(splitAndAdd(23387));
+
+        // 23
+        System.out.println(splitAndAdd(546125));
+
+    }
+}
+
+// フィボナッチ数列
+// easy
+// Jack は魔法使いからもらった豆を裏庭に植えて昼寝をしました。昼寝から目覚めて裏庭を確認するとその豆は巨木へと成長し、
+// 雲の上にある巨人の城にたどりつくまでの大きさになっていました。豆を観察すると、以下の条件で 1 秒ずつ成長することがわかりました。
+
+// f(0) = 0
+
+// 　
+// f(1) = 1
+
+// 　
+// f(n) = f(n-1) + f(n-2) (n ≥ 2)
+
+// 整数 n が与えられるので、n 秒後の木の高さを求める、fibonacci という関数を作成してください。
+
+class Solution{
+    public static int fibonacci(int n){
+        //ここから書きましょう
+        return fibonacciHelper(0,1,n);
+    }
+
+    public static int fibonacciHelper(int n,int m ,int count){
+        if(count == 0)return n;
+        return fibonacciHelper(m, n + m , count -1);
+    }
+}
+
+// 数字の分割
+// medium
+// 自然数 digits（0 < digits < 1015）が与えられるので、数字を 1 桁ずつ分解して、それぞれの値を合計し、
+// その値が 1 桁になるまで同じ作業を繰り返した時、それぞれの合計値を足し合わせて得られる値を返す、recursiveDigitsAdded という関数を再帰を使って作成してください。
+// 例えば、45622943 の場合、1 桁ずつ分解することによって、4 + 5 + 6 + 2 + 2 + 9 + 4 + 3 = 35 となりますが、値が 1 桁ではないので、
+// もう一度 35 = 3 + 5 = 8 のように分解します。最後にそれぞれ足し合わせて 8 + 35 = 43 となります。
+// 99999999999884 の場合は、9 + 9 + 9 + 9 + 9 + 9 + 9 + 9 + 9 + 9 + 9 + 8 + 8 + 4 = 119 となり、その後 1 + 1 + 9 = 11 となるので、119 + 11 + 2 = 132 となります。
+
+class Solution{
+    public static int recursiveDigitsAdded(long digits){
+        //ここから書きましょう
+        return recursiveDigitsAddedHelper(digits,0,0);
+    }
+
+    public static int recursiveDigitsAddedHelper(long digits,long total,long totalSeconnd){
+
+        if(digits < 10){
+            total += digits;
+            if(total < 10)return (int)(total + totalSeconnd);
+            return recursiveDigitsAddedHelper(total,0,totalSeconnd + total);
+        }
+        return recursiveDigitsAddedHelper(digits / 10,total + digits % 10,totalSeconnd);
+
+    }
+}
