@@ -573,3 +573,68 @@ class Solution{
 
     }
 }
+
+
+// グローバルスコープでMainというクラスを定義します。
+class Main{
+    public static int x = 34;
+
+    public static void main(String[] args){
+        //クラスのためのスコープも作成されます。
+
+        // xを出力します。
+        // ここでは、xは定義されていないので、
+        // 親のスコープが検索されます。
+        System.out.println(x); //34
+
+        // 現在のローカルスコープでxを宣言します。
+        int x = 56;
+
+        // xを検索します。
+        // 最初に検索されるのはローカルスコープです。
+        // したがって56が出力されます。
+        System.out.println(x);
+    }
+
+}
+
+// グローバルスコープでAというクラスを定義します。
+class A{
+    public static int x = 3;
+    public static int y = 10;
+
+    public static int multiply(int x){
+        // yを検索します。
+        // yはローカルスコープで見つからず、
+        // y = 10として親スコープツリーで見つかりました。
+        return x * y;
+    }
+
+    //Aの中にまたBというクラスを定義します。
+    static class B{
+        public static int x = 15;
+
+        public static int multiply(int x){
+            // yを検索します。
+            // yはローカルスコープで見つからず、
+            // y = 10として親スコープツリーで見つかりました。
+            return x * y;
+        }
+    }
+}
+
+class Main{
+
+    public static void main(String[] args){
+        int x = 33;
+        System.out.println(x); // 33
+
+        System.out.println(A.x); // 3
+
+        System.out.println(A.multiply(5)); // 50
+
+        System.out.println(A.B.x); //15
+
+        System.out.println(A.B.multiply(2)); // 20
+    }
+}
