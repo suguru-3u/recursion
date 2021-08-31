@@ -638,3 +638,176 @@ class Main{
         System.out.println(A.B.multiply(2)); // 20
     }
 }
+
+
+class Main{
+
+    public static String monsterAttackSwitchMenu(String monster){
+        int attack = 1000;
+        String message = "'s attack is:";
+        // モンスターの名前を入力として受け取って、ケースで比較してみましょう。
+        switch(monster) {
+            case "Cyclops":
+                attack *= 1.8;
+                message = "Cyclops" + message + attack;
+                break;
+            case "Ogre":
+                attack *= 2.5;
+                message = "Ogre" + message + attack;
+                break;
+            case "Zombie":
+                attack *= 1.2;
+                message = "Zombie" + message + attack;
+                break;
+            default :
+                // これが最後のステートメントなので、ここにbreak文をつけてもつけなくても問題ありません。
+                message = "Monster does not exist.";
+        }
+
+        return message;
+    }
+
+    public static void main(String[] args){
+        System.out.println(monsterAttackSwitchMenu("Cyclops"));
+        System.out.println(monsterAttackSwitchMenu("Ogre"));
+        System.out.println(monsterAttackSwitchMenu("Zombie"));
+        System.out.println(monsterAttackSwitchMenu("Ghost"));
+        System.out.println(redirectionUrl("English"));
+        System.out.println(redirectionUrl("Japanese"));
+        System.out.println(redirectionUrl("Spanish"));
+        System.out.println(redirectionUrl("a"));
+    }
+
+// / 例題
+// 選択された言語によって、www.example.orgのサブディレクトリにリダイレクトする、redirectionUrlという関数を作成してください。
+
+// English -> www.example.org/en
+// Japanese -> www.example.org/ja
+// Spanish -> www.example.org/es
+// Russian -> www.example.org/ru
+// それ以外の場合 -> www.example.org
+
+    public static String redirectionUrl(String lungech){
+        String url = "www.example.org/";
+
+        switch(lungech){
+            case "English":
+                url += "en";
+                break;
+            case "Japanese":
+                url += "ja";
+                break; 
+            case "Spanish":
+                url += "es";
+                break; 
+            case "Russian":
+                url += "ru";
+                break; 
+            default:
+                url = "www.example.org";
+                break; 
+        }
+
+        return url;
+    }
+}
+
+
+// 例題1
+// アルファベットが与えられるので、文字コードが奇数の時にTrue、偶数の時にFalseを返す、isEncodeOddという関数を作成してください。
+
+// "a" -> True
+// "k" -> True
+// "p" -> False
+// "z" -> False
+
+
+// 例題2
+// ビットが与えられるので、0と1を反転するoneComplementという関数を再帰を使って作成してください。
+
+
+// "0101010" -> "1010101"
+// "0000" -> "1111"
+// "111111" -> "000000"
+// "1011110" -> "0100001"
+
+
+
+
+
+class Main{
+
+    public static String isEven(int n){
+        return (n % 2 == 0) ? "The number " + n + " is even" : "The number " + n + " is odd";
+    }
+
+    public static void main(String[] args){
+        System.out.println(isEven(43));
+        System.out.println(isEven(44));
+        System.out.println(isEven(1023));
+        System.out.println(isEven(9992));
+        System.out.println(isEncodeOdd("a"));
+        System.out.println(isEncodeOdd("k"));
+        System.out.println(oneComplement("1010101"));
+        System.out.println(oneComplement("1000"));
+    }
+
+    public static boolean isEncodeOdd(String n){
+        return (Character.codePointAt(n ,0) % 2 == 1) ? true : false ;
+    }
+
+    public static String oneComplement(String m){
+        return oneComplementHelper(m, "", 0);
+    }
+
+    public static String oneComplementHelper(String n ,String m,int z){
+        if(n.length() == z)return m;
+
+        m += n.charAt(z) == '1' ? '0' : '1' ;
+
+        return oneComplementHelper(n,m,z + 1);
+
+    }
+}
+
+// / 例題
+// 自然数nが与えられるので、1からnまで文字列として出力するprintFizzbuzzという関数を作成してください。
+// ただし、3の倍数の時にはfizz、5の倍数の時にはbuzz、15の倍数の時にはfizzbuzzと出力してください。
+
+
+class Main{
+
+    public static void countUpToN(int n){
+        for(int i = 0; i < n; i++){
+            System.out.println(i);
+        }
+    }
+
+    public static void printAllCharacters(String str){
+        for(int i = 0; i < str.length(); i++){
+            System.out.println(str.charAt(i));
+        }
+    }
+
+    public static void main(String[] args){
+        countUpToN(15);
+        printAllCharacters("Hello World!!");
+        printFizzbuzz(15);
+    }
+
+    public static void printFizzbuzz(int n){
+        for(int i = 1; i < n ; i++){
+            if(i % 5 == 0 && i % 3 == 0 ){
+                System.out.println("fizzbuzz");
+            }else if(i % 5 == 0){
+                System.out.println("buzz");
+            }else if(i % 3 == 0){
+                System.out.println("fizz");
+            }else{
+                System.out.println(i);
+            }
+        }
+    }
+}
+
+
