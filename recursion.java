@@ -810,4 +810,186 @@ class Main{
     }
 }
 
+// あるクラスの生徒たちが飼っているペットの情報が文字列 s で与えられます。
+// si が 0 の時、i 番目の生徒はペットを飼っていないことを、1 のとき、i 番目の生徒は犬を飼っていることを、2 のとき、
+// i 番目の生徒は猫を飼っていることを表します。
+// さて、このような文字列 s が与えられたときに、このクラスでペットを飼っている人の人数を返す、countPetOwner という関数を定義してください。
 
+class Main {
+
+    // countPetOwner("1112002102")  7
+    // countPetOwner("1020202")  4
+    // countPetOwner("122211220")  8
+
+
+    public static void main(String[] args){
+        System.out.println(countPetOwner("122211220"));
+    }
+
+    public static int countPetOwner(String s){
+
+        int count = 0;
+        for(int i = 0; i < s.length() ; i ++){
+            if(s.charAt(i) == '1' || s.charAt(i) == '2'){
+                count += 1;
+            }
+        }
+        return count;
+    }
+}
+
+// 1 と同じ設定で、そのクラスに犬を飼っている人と、猫を飼っている人、どちらが多いか求めてください。犬を飼っている人が多い場合は
+//  "dog"、猫を飼っている人の方が多い場合は "cat"、同じ場合は、"dogcat" と返す、catOrDog という関数を作成してください。
+
+class Main {
+
+    // catOrDog("1112002102")  dog
+    // catOrDog("111222")  dogcat
+    // catOrDog("1112222222")  cat
+
+
+    public static void main(String[] args){
+        System.out.println(catOrDog("1112222222"));
+    }
+
+    public static String catOrDog(String s){
+
+        int cat = 0;
+        int dog = 0;
+
+        for(int i = 0; i < s.length() ; i ++){
+            if(s.charAt(i) == '1') dog += 1;
+            if(s.charAt(i) == '2') cat += 1;
+        }
+
+        if(cat > dog) return "cat";
+        else if(cat == dog) return "dogcat";
+        else return "dog";
+    }
+}
+
+// 1 と同じ設定に対して、i 番目の生徒と i+1 番目の生徒の飼っているペットが同じとき、その二人は気が合うペアだとします。
+// このクラスに気が合うペアが何組いるか返す、matchPetOwner という関数を作成してください。
+
+class Main {
+
+    // matchPetOwner("111")  2
+    // matchPetOwner("111022121")  3
+    // matchPetOwner("100202001")  0
+
+
+    public static void main(String[] args){
+        System.out.println(matchPetOwner("100202001")); // dog
+    }
+
+     public static int matchPetOwner(String s) {
+        int countMatch = 0;
+      
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (s.charAt(i) == s.charAt(i + 1)) countMatch += 1;
+        }
+        return countMatch;
+    }
+}
+
+// 例題1
+// 自然数nが与えられるので、1からnまで文字列として出力するfizzbuzzという関数をwhile文を使って作成してください。
+// ただし、3の倍数の時にはfizz、5の倍数の時にはbuzz、15の倍数の時にはfizzbuzzと出力してください。
+
+// 例題2
+// 自然数digitsが与えられるので、桁数を分解して足し合わせる、splitAndAddという関数をwhile文を使って作成してください。
+
+
+
+// 例題3
+// 数字を1桁ずつ分解して、それぞれの値を合計し、その値が1桁になるまで同じ作業を繰り返した時、それぞれの合計値を足し合わせて得られる値を返す、
+// whileDigitsAddedという関数を例題2を使って作成してください。
+
+class Main {
+    
+
+    public static void main(String[] args){
+        // fizzbuzz(20);
+
+        System.out.println(splitAndAdd(23387));
+        System.out.println(whileDigitsAdded(23387));
+    }
+
+    public static void fizzbuzz(int m){
+
+        int n = 0;
+        while(m > n){
+            n += 1;
+            if(n % 5 == 0 && n % 3 == 0 ) System.out.println("fizzbuzz");
+            else if(n % 5 == 0) System.out.println("buzz");
+            else if(n % 3 == 0) System.out.println("fizz");
+            else System.out.println(String.valueOf(n));
+        }
+        return;
+    }
+
+    public static int splitAndAdd(int digits){
+
+        int total = 0;
+
+        while(digits >= 10){           
+            total += digits % 10;
+            digits /= 10 ;
+        }
+        return digits + total;
+    }
+
+    public static int whileDigitsAdded(int digits){
+        int total = 0;
+
+        while(splitAndAdd(digits) >= 10){
+            digits = splitAndAdd(digits);
+            total += digits;
+        }
+        return  total + splitAndAdd(digits);
+    }
+
+}
+
+
+// 素数
+// easy
+// Kate は音楽の野外フェスを行うことになり、入場者の中から抽選でプレゼントを渡す企画を立てています。
+// そこで、素数の値で入場した方を当選者とすることにしました。入場者番号 number が与えられるので、素数かどうか判定する isPrime という関数を作成してください。
+
+class Solution{
+    public static boolean isPrime(int number){
+        //ここから書きましょう
+        return isPrimeHelper(number);
+    }
+
+    public static boolean isPrimeHelper(int number){
+        
+        for(int i = 2 ; i < number ; i++){
+            if(number % i == 0)return false;
+        }
+
+        return number > 1;
+
+    }
+}
+
+// 出席管理
+// easy
+// R 大学ではどの授業でも 3 回以上欠席すると、単位を取得できない制度です。
+// Participate を表す P と Absence を表す A によって構成される文字列 string が与えられるので、
+// 単位取得可能であれば pass、不可能であれば fail を返す、doYouFail という関数を作成してください。
+
+class Solution{
+    public static String doYouFail(String string){
+        //ここから書きましょう
+        int count = 0;
+
+        for(int i = 0; i < string.length() ; i++){
+            if(string.charAt(i) == 'A') count += 1;
+            if(count >= 3)return "fail";
+        }
+        
+        return "pass";
+    }
+}
