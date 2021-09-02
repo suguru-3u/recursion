@@ -993,3 +993,34 @@ class Solution{
         return "pass";
     }
 }
+
+
+// 割り切れない
+// easy
+// Jane は体育祭実行委員会に所属しており、クラスから複数人お手伝いを呼ばなければなりません。
+// そこで、出席番号がある特定の値で割り切れない人を呼ぼうと考えています。
+// クラスの人数 x、値 y が与えられるので、お手伝いの出席番号を全て返す関数 notDivided を作成してください。ただし（x,y）≠（1,1）とします。
+
+class Solution{
+    public static String notDivided(int x,int y){
+        //ここから書きましょう
+        String message = "";
+        for(int i = 1; i <= x ; i++){
+            if(i % y != 0)message += i + "-";
+        }
+        return message.substring(0, message.length() - 1);
+    }
+}
+
+
+class Solution{
+    public static String notDivided(int x,int y){
+        //ここから書きましょう
+        String message = "";
+        for(int i = 1; i <= x ; i++){
+            if(i % y != 0)message += i + "-";
+        }
+        return message.substring(0, message.length() - 1);
+    }
+}
+
