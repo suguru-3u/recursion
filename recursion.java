@@ -1024,3 +1024,27 @@ class Solution{
     }
 }
 
+
+// 10進数から16進数への書き換え
+// medium
+// Zayn は 16 進数しか使えない世界は飛ばされてしまったため、自動で 10 進数を 16 進数へ変えるプログラムを作ることにしました。
+// 正の 10 進数 decNumber が与えられるので、16 進数に書き換える decimalToHexadecimal という関数を作成してください。
+
+class Solution{
+    public static String decimalToHexadecimal(int decNumber){
+      
+    String hexadecimal = "0123456789ABCDEF";
+    String hex = "";
+    int currentHex = 0;
+
+    while(decNumber > 0){
+        currentHex = decNumber % 16;
+        hex = hexadecimal.charAt(currentHex) + hex ;
+        decNumber = (int)Math.floor(decNumber/16);
+    }
+
+    return hex;
+
+
+    
+}
