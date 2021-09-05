@@ -1048,3 +1048,64 @@ class Solution{
 
     
 }
+
+
+
+// ここから書いてください
+class Animal{
+    // 状態
+    String name: // 動物の名前
+    String species: // 動物の種
+    String description: // 動物の説明
+    double weightKg: // 動物の体重kg
+    double heightM: // 動物の身長(垂直に立ち上がった時の身長を指す)メートル
+    bool isPredator: // 動物は捕食者かどうか
+    double speedKph: // 動物の時速
+    String urlPic: // 動物の写真のURL
+    String registerDate: // 動物園に登録された日付(例.2020/04/03)
+    // 状態 - クラス変数
+    static double activityMultiplier = 1.2: 
+    // どれほど動物が活発的か表す数字。動物園の動物は檻に入れられているので活動が制限されているとみなし、活動指数を1.2とします。
+
+
+    // 挙動
+    public String getStateString(){
+        return this.name;
+    } 
+    
+    public double getBmi(){
+        return this.weightKg / (this.heightM * this.heightM);
+    } // 動物のBMIを返します。BMIの公式 kg/(height2) を使ってください。
+    
+    public double getDailyCalories(){
+        return (70 * Math.pow(this.weightKg,0.75)) * this.activityMultiplier;
+    }
+       
+    public bool isDangerous(){
+        if(this.isPredator || this.heightM > 1.7 || this.speedKph > 35)return true;
+        return false;
+    }
+    
+    // 動物が危険かどうか判断するブーリアン値を返します。動物が捕食者だった場合、危険とみなされ、身長が1.7メートル以上、もしくは時速35km/h以上の場合も危険とみなされます。
+bool isFaster(animal): // 動物のオブジェクトを受け取り、動物のオブジェクトがパラメータの入力として渡された動物より速いかどうか判断します。
+}
+// 状態: name, species, description, weightKg, heightM, isPredator, speedKph, urlPic, registerDate
+
+// 入力例1:
+// rabbit = Animal("rabbit", "leporidae", "Rabbits are small mammals in the family Leporidae of the order Lagomorpha (along with the hare and the pika).", 10, 0.3, False, 20, "img1", "2020/5/25")
+
+// 出力例1
+// rabbit.getStateString() : "name: rabbit, species: leporidae, description: Rabbits are small mammals in the family Leporidae of the order Lagomorpha (along with the hare and the pika)., weight: 10kg, height: 0.3m, Not Predator, speed: 20kph, urlPic: img1, registerDate: 2020/5/25"
+// rabbit.getBmi() : 111.11111111111111
+// rabbit.getDailyCalories() : 472.36671315989327
+// rabbit.isDangerous() : false
+
+// 入力例2:
+// elephant = Animal("elephant", "Elephantidae", "Elephants are mammals of the family Elephantidae and the largest existing land animals.", 300, 3, False, 5, "img2", "2020/5/26")
+
+// 出力例2
+// elephant.getStateString() : "name: elephant, species: Elephantidae, description: Elephants are mammals of the family Elephantidae and the largest existing land animals., weight: 300kg, height: 3m, Not Predator, speed: 5kph, urlPic: img2, registerDate: 2020/5/26"
+// elephant.getBmi() : 33.333333333333336
+// elephant.getDailyCalories() : 6055.08476361958
+// elephant.isDangerous() : true
+// elephant.isFaster(rabbit) : false
