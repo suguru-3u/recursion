@@ -1230,3 +1230,71 @@ class Main{
         System.out.println(HelperFunction.hashPassword("lmnlmn")); // passwordをハッシュ化
     }
 }
+
+class BankAccount {
+    public final double maxWidthdrawRate = 0.2;
+
+    public String bankName;
+    public String ownerName;
+    public int savings;
+    public double interestPerDay;
+
+
+    public BankAccount(String bankName, String ownerName, int savings, double interestPerDay){
+        this.bankName = bankName;
+        this.ownerName = ownerName;
+        this.savings = savings;
+        this.interestPerDay = interestPerDay;
+    }
+
+    // ユーザーの情報を表示します。
+    public String showInfo() {
+        return "bank: " + this.bankName + "\nowner name: " + this.ownerName + "\nbank account number: " + HelperFunction.getRandomInteger(1, (int)Math.pow(10,8));
+    }
+
+    // depositAmountによって貯蓄額を増やし、その金額をint型で返します。もし預金前の貯蓄額が$20,000以下の場合は、$100の手数料がかかります。
+    public int depositMoney(int depositAmount) {
+        return this.savings += this.savings <= 20000 ? depositAmount - 100 : depositAmount;
+    }
+    
+    // withdrawAmountによって貯蓄額を減らし、withdrawAmountを整数として返します。最大で貯蓄額の20%を引き出すことができます。
+    public int withdrawMoney(int withdrawAmount) {
+        double moneyYouCanTake = withdrawAmount > this.maxWidthdrawRate * this.savings ? this.maxWidthdrawRate * this.savings : withdrawAmount;
+        this.savings -= moneyYouCanTake;
+        return (int)moneyYouCanTake;
+    }
+
+    // 毎日interestPerDayによって貯蓄額を増加し、その金額をdouble型で返します。
+    public double pastime(int day) {
+        return this.savings * Math.pow(1 + this.interestPerDay, day);
+    }
+}
+
+// 計算を行うクラス
+class HelperFunction {
+    // min-max間のランダムな整数を返します。
+    public static int getRandomInteger(int min, int max) {
+        return (int)Math.floor(Math.random() * (max - min)) + min;
+    }
+}
+
+class Main{
+    public static void main(String[] args){
+
+        BankAccount user1 = new BankAccount("Chase", "Claire Simmmons", 30000, 0.010001);
+
+        System.out.println(user1.showInfo());
+        System.out.println(user1.withdrawMoney(1000));
+        System.out.println(user1.depositMoney(10000));
+        System.out.println(user1.pastime(200));
+
+        System.out.println("\n");
+
+        BankAccount user2 = new BankAccount("Bank Of America", "Remy Clay", 10000, 0.010001);
+
+        System.out.println(user2.showInfo());
+        System.out.println(user2.withdrawMoney(5000));
+        System.out.println(user2.depositMoney(12000));
+        System.out.println(user2.pastime(500));
+    }
+}
