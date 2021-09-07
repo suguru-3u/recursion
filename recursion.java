@@ -1131,3 +1131,102 @@ bool isFaster(animal): // 動物のオブジェクトを受け取り、動物の
 // elephant.getDailyCalories() : 6055.08476361958
 // elephant.isDangerous() : true
 // elephant.isFaster(rabbit) : false
+
+
+// ここから書いてください
+
+// 状態 : username, firstName, lastName, email, passwordHashed, birthMonth, birthYear, biographyDescription,favoriteHikingLocation
+
+// 入力例
+// claire = User("claireS", "Claire", "Simmons", "clairesimmons@gmail.com", "lmnlmn", 9, 2007, "Passionate gamer. Evil internet aficionado. Student. Friendly tv specialist. Introvert.", "Hollywood Sign Hike")
+
+// 出力例
+// claire.getFullName(): "Claire Simmons"
+// claire.getAge(): 13
+// claire.birthdayCalculator(): 7
+// claire.showProfile(): "claireS, 13 years old, Passionate gamer. Evil internet aficionado. Student. Friendly tv specialist. Introvert. favorite place to hike: Hollywood Sign Hike"
+// claire.confirmPassword("lmnlmn"): true
+
+import java.time.LocalDateTime; // LocalDateTimeは、日付/時間を表す不変の日付/時間オブジェクトです。 
+
+class User{
+    String username; // ユーザーネーム
+    String firstName; // ユーザーの名
+    String lastName; // ユーザーの姓
+    String email; // 登録されたEメールアドレス
+    String passwordHashed; // ユーザーログインの確認に使われるハッシュ化されたパスワード
+    int birthMonth; // ユーザーが生まれた月。
+    int birthYear; // ユーザーが生まれた年
+    String biographyDescription; // ユーザーのプロフィールのbio
+    String favoriteHikingLocation; // ユーザーのお気に入りのハイキング場所
+
+    public User(String username,String firstName,String lastName,String email,String password, 
+                int birthMonth,int birthYear,String biographyDescription,String favoriteHikingLocation){
+        
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.passwordHashed = HelperFunction.hashPassword(password);
+        this.birthMonth = birthMonth;
+        this.birthYear = birthYear;
+        this.biographyDescription = biographyDescription;
+        this.favoriteHikingLocation = favoriteHikingLocation;
+
+    }
+
+     public static String hashPassword(String password){
+        return String.valueOf(password.hashCode());
+    }
+
+      // ユーザーのフルネームを返します。
+    public String getFullName(){
+        return this.firstName + " " + this.lastName;
+    }
+
+    // ユーザーの年齢を返します。
+    public int getAge(){
+        int currentYear = LocalDateTime.now().getYear();
+        int currentMonth = LocalDateTime.now().getMonthValue();
+        int result = currentYear - this.birthYear;
+        return currentMonth >= this.birthMonth? result : result - 1;
+    }
+
+    // 誕生日まであと何ヶ月あるか計算して返します。
+    public int birthdayCalculator(){
+        int currentMonth = LocalDateTime.now().getMonthValue();
+        if (currentMonth - this.birthMonth > 0) return 12 - (currentMonth - this.birthMonth);
+        else return this.birthMonth - currentMonth;
+    }
+
+    // ユーザーのプロフィールを返します。
+    public String showProfile(){
+        return this.username + "\n" + this.getAge() + " years old\n" + this.biographyDescription + "\nfavorite place to hike: " + this.favoriteHikingLocation;
+    }
+
+    // 指定したpasswordStringが保存したpasswordHashedと一致しているかをブーリアン値で返します。
+    // セキュリティのために、パスワードのハッシュ化されたバージョンがメモリ内の状態に保存されることに注意してください。
+    // パスワードを文字列として受け取り、その文字列をマップし、ハッシュ化されたパスワードhashedPassword返す関数を使う必要があります。
+    public boolean confirmPassword(String passwordString){
+        return this.passwordHashed.equals(HelperFunction.hashPassword(passwordString));
+    }
+}
+
+class HelperFunction{
+    public static String hashPassword(String password){
+        return String.valueOf(password.hashCode());
+    }
+}
+
+class Main{
+    public static void main(String[] args){
+        User claire = new User("claireS", "Claire", "Simmons", "clairesimmons@gmail.com", "lmnlmn", 9, 2007, "Passionate gamer. Evil internet aficionado. Student. Friendly tv specialist. Introvert.", "Hollywood Sign Hike");
+
+        System.out.println(claire.getFullName());
+        System.out.println(claire.getAge());
+        System.out.println(claire.birthdayCalculator());
+        System.out.println(claire.showProfile());
+        System.out.println(claire.confirmPassword("lmnlmn"));
+        System.out.println(HelperFunction.hashPassword("lmnlmn")); // passwordをハッシュ化
+    }
+}
