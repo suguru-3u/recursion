@@ -1298,3 +1298,93 @@ class Main{
         System.out.println(user2.pastime(500));
     }
 }
+
+class File{
+     // ファイル名
+    String fileName;
+    // ファイルの拡張子。.word、.png、.js、.css、.html、.mp4、.mp3、.pdfでない場合は、.txtに設定されます。
+    String fileExtension;
+     // ファイルのすべての内容
+    String content;
+    // ファイルの内容を上書きできるかどうかを決めるブーリアン値。trueの場合、コンテンツがロックされており、
+    //  falseの場合、コンテンツがロックされていないことを示します。
+    boolean locked;
+    // ファイルが置かれているフォルダの名前
+    String parentFolder;
+
+    public File(String fileName,String fileExtension,String content,boolean locked,String parentFolder){
+        this.fileName = fileName;
+        this.fileExtension = fileExtension;
+        this.content = content;
+        this.locked = locked;
+        this.parentFolder = parentFolder;
+    }
+
+    // 挙動
+    // サービス中に使われるファイルの最大容量を返します。
+    // contentに含まれる文字につき、10MBとして計算してください。
+    // 例えば、1000文字含まれている場合、1000 * 10MB = 10,000MB = 10GBになります。  
+    public String getLifetimeBandwidthSize(){
+        int length = this.content.length() * 10;
+        if(length >= 1000)return length % 1000  + "GB";
+        else return length + "MB";
+        
+    }
+
+    // オブジェクトのファイルタイプを返します。
+    // document(.pdf, .word, .txt)、source-code(.js, .css, .html)、video(.mp4)、music(.mp3)があります。
+    public String getFileType(){
+        if(this.fileExtension == ".pdf" || this.fileExtension == ".word" || this.fileExtension == ".txt"){
+            return "document";
+        }else if(this.fileExtension == ".js" || this.fileExtension == ".css" 
+                || this.fileExtension == ".html"){
+            return "source-code";
+        }else if(this.fileExtension == ".mp4"){
+            return "video";
+        }else{
+            return "music";
+        }
+        
+    }
+
+    // もしファイルがロックされていなければ、ファイルのcontentの先頭にデータ文字列を追加し、新しいcontentを返します。
+    public String prependContent(String data){
+        if(this.locked == false) return this.content = data + this.content ;
+        return this.content;
+    }
+
+    // もしファイルがロックされていなければ、ファイルのcontentの末尾にデータ文字列を追加し、新しいcontentを返します。
+    public String appendContent(String data){
+        if(this.locked == false) return this.content += data;
+        return this.content;
+    } 
+
+     // もしファイルがロックされていなければ、ファイルのcontentの指定した位置(インデックス)にデータ文字列を追加し、新しいcontentを返します。
+    public String addContent(String data, int position){
+        if(this.locked == false){
+            return this.content.substring(0,position) + data + this.content.substring(position + 1);
+        }
+        return this.content;
+    }
+
+     // 親ファイル > ファイル名.拡張子という形で返します。
+    public String showFileLocation(){
+        return this.parentFolder + " > " + this.fileName + this.fileExtension;
+    }
+}
+// ここから開発しましょう。
+
+class Main{
+    public static void main(String[] args){
+
+        File assignment = new File("assignment", ".word", "Something that occurs too early before preparations are ready. Starting too soon.", false, "homework");
+
+        System.out.println(assignment.getLifetimeBandwidthSize());
+        System.out.println(assignment.getFileType());
+        System.out.println(assignment.prependContent("good morning "));
+        System.out.println(assignment.appendContent(" good evening"));
+        System.out.println(assignment.addContent("hello world ", 13));
+        System.out.println(assignment.showFileLocation());
+    }
+}
+
