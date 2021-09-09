@@ -1388,3 +1388,167 @@ class Main{
     }
 }
 
+// ここから開発してください。
+class Product{
+    // 状態
+    String title; // 製品のタイトル。
+    double price; // 製品の価格(ドル)
+
+    public Product(String title,double price){
+        this.title = title;
+        this.price = price;
+    }
+}
+
+class InvoiceItemNode{
+    // 状態
+    int quantity; // 購入する製品の数を表す
+    Product product; // 購入される製品に関するすべての情報を含む製品オブジェクト
+    InvoiceItemNode next; // このノードのInvoiceItemNode
+
+    public InvoiceItemNode(Product product,int quantity){
+        this.product = product;
+        this.quantity = quantity;
+        this.next = null;
+    }
+
+    // 挙動
+    // 購入する数量に基づいて、製品の合計価格を計算します。
+    public double getTotalPrice(){
+        return this.product.price * this.quantity;
+    }
+}
+
+
+class Invoice{
+    // 状態
+    // 請求書番号。"UC-"の後に10桁の数字が続くとします。
+    String invoiceNumber;
+    // 請求書が作成された日付。
+    String invoiceDate;
+    // 会社名
+    String company;
+    // 会社の住所
+    String companyAddress;
+    // 請求書先の名前
+    String billToName;
+     // 請求書先の住所
+    String billToAddress;
+    // 購入したアイテムのリストの開始を表すInvoiceItemNode。抽象オブジェクトで学習したnodeを参照してください。
+    InvoiceItemNode invoiceItemHeadNode;
+
+    public Invoice(String invoiceNumber,String invoiceDate,String company,String companyAddress,
+                 String billToName,String billToAddress,InvoiceItemNode invoiceItemHeadNode){
+
+        this.invoiceNumber = invoiceNumber;
+        this.invoiceDate = invoiceDate;
+        this.company = company;
+        this.companyAddress = companyAddress;
+        this.billToName = billToName;
+        this.billToAddress = billToAddress;
+        this.invoiceItemHeadNode = invoiceItemHeadNode;
+    }
+
+    // 挙動
+    // 請求書の支払総額を計算します。
+    // InvoiceItemHeadNodeから始まるすべてのリスト項目を反復処理し、数量も考慮して計算する必要があります。
+    // Tax inputがtrueに設定されている場合は、合計金額に10%を加算してください。
+    public double amountDue(boolean taxes){
+        InvoiceItemNode invoiceItemHeadNodeed = this.invoiceItemHeadNode;
+        int aa = 0;
+        while(invoiceItemHeadNodeed != null){
+            // 現在のノードの値を出力します。
+            aa += invoiceItemHeadNodeed.getTotalPrice();
+            // 現在のノードを次のノードに変更します。getTotalPrice
+            invoiceItemHeadNodeed = invoiceItemHeadNodeed.next;
+        }
+        return  taxes ? aa * 1.10 : aa ;
+    }
+
+    // 請求書の全項目と数量を出力します。「item :shampoo, price :10, quantity:7」のようにそれぞれのアイテムを出力してください。
+    public void printBuyingItems(){
+        InvoiceItemNode invoiceItemHeadNodeed = this.invoiceItemHeadNode;
+        System.out.println("Printing the Item List...");
+        while(invoiceItemHeadNodeed != null){
+            // 現在のノードの値を出力します。
+            System.out.println("item :" + invoiceItemHeadNodeed.product.title + ", " + 
+            "price :" + invoiceItemHeadNodeed.product.price + ", " +
+            "quantity :" + invoiceItemHeadNodeed.quantity);
+            // 現在のノードを次のノードに変更します。getTotalPrice
+            invoiceItemHeadNodeed = invoiceItemHeadNodeed.next;
+        }
+    }
+
+    // 請求書の全内容を出力します。以下のように出力してください。
+    // shampoo($10)--- 7 pcs. --- AMOUNT: 70
+    public void printInvoice(){
+        System.out.println(
+           "Invoice\n" +
+           "No. : " + this.invoiceNumber + "\n" +
+           "INVOICE DATE : " + this.invoiceDate + "\n" +
+           "SHIP TO : " + this.company + "\n" +
+           "ADDRESS : " + this.companyAddress + "\n" +
+
+           "BILL TO : " + this.billToName + "\n" +
+           "ADDRESS : " + this.billToAddress + "\n" 
+        );
+        InvoiceItemNode invoiceItemHeadNodeed = this.invoiceItemHeadNode;
+        int amount = 0;
+        while(invoiceItemHeadNodeed != null){
+            // 現在のノードの値を出力します。
+            System.out.println(invoiceItemHeadNodeed.product.title + 
+            "($" + invoiceItemHeadNodeed.product.price + ")" + "--- " +
+            invoiceItemHeadNodeed.quantity + " pcs." + "---" +
+            "AMOUNT: " + (invoiceItemHeadNodeed.product.price * invoiceItemHeadNodeed.quantity));
+
+            amount += invoiceItemHeadNodeed.product.price * invoiceItemHeadNodeed.quantity;
+
+            // 現在のノードを次のノードに変更します。getTotalPrice
+            invoiceItemHeadNodeed = invoiceItemHeadNodeed.next;
+        }
+        System.out.println("SUBTOTAL : " + amount);
+    }
+}
+
+
+// 入力例
+class Main{
+
+    public static void main(String[] args){
+    Product product1 = new Product ("shampoo", 10);
+    Product product2 = new Product ("conditioner", 5);
+    Product product3 = new Product ("tooth brush", 3);
+
+    InvoiceItemNode firstItem = new InvoiceItemNode(product1, 7);
+    InvoiceItemNode secondItem = new InvoiceItemNode(product2, 9);
+    firstItem.next = secondItem;
+    InvoiceItemNode thirdItem = new InvoiceItemNode(product3, 10);
+    secondItem.next = thirdItem;
+
+    Invoice invoice = new Invoice ("UC1234567890", "2020/05/06", "Recursion", "Los Angles", "Steven", "Dallas", firstItem);
+    // 出力例
+    invoice.printBuyingItems();
+    // Printing the Item List...
+    // item :shampoo, price :10, quantity:7
+    // item :conditioner, price :5, quantity:9
+    // item :tooth brush, price :3, quantity:10
+    // Invoice
+    // No. : UC1234567890
+    // INVOICE DATE : 2020/05/06
+    // SHIP TO : Recursion
+    // ADDRESS : Los Angles
+    // BILL TO : Steven
+    // ADDRESS : Dallas
+
+    invoice.printInvoice();
+    // shampoo($10)--- 7 pcs. --- AMOUNT: 70
+    // conditioner($5)--- 9 pcs. --- AMOUNT: 45
+    // tooth brush($3)--- 10 pcs. --- AMOUNT: 30
+    // SUBTOTAL : 145
+    // TAX : 14.5
+    // TOTAL : 159.5
+
+    System.out.println(invoice.amountDue(false)); 
+    System.out.println(invoice.amountDue(true));
+    }
+}
