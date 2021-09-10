@@ -1552,3 +1552,64 @@ class Main{
     System.out.println(invoice.amountDue(true));
     }
 }
+
+
+class Main{
+    public static boolean isEven(int n){
+        return n % 2 == 0;
+    }
+
+    // 整数の配列を取り込んで、偶数が何個あるかを調べます。
+    public static int totalEven(int[] listOfInts){
+        int count = 0;
+        for(int i = 0; i < listOfInts.length ; i++){
+            count += isEven(listOfInts[i]) ? 1 : 0;
+        }
+        return count;
+    }
+
+    public static void main(String[] args){
+        int[] list1 = new int[]{3,43,5,4,2,100,6};
+
+        int[] list2 = new int[]{3,43,5,4,2,100,6};
+
+        int[] list3 = new int[]{3,43,5,1000,2,100,6};
+
+        int totalEvens = totalEven(list1);
+        System.out.println(totalEvens);
+
+        System.out.println(sumArrayElement(list2));
+        System.out.println(maxValue(list3));
+    }
+
+    public static int sumArrayElement(int[] a){
+        int count = 0;
+        for(int i = 0; i < a.length ; i++){
+            count += a[i];
+        }
+    return count;
+    }
+
+    public static int maxValue(int[] a){
+        int count = 0;
+        for(int i = 0; i < a.length ; i++){
+            if(count < a[i]) count = a[i];
+        }
+    return count;
+    }
+
+}
+
+// 例題1
+// 整数によって構成される固定配列が与えられるので、配列内の全ての要素を足し合わせた数値を返す、sumArrayElementという関数を作成してください
+// [3,43,5,4,2,100,6] --> 163
+// [1,2,3,4,5,6] --> 21
+// [32,21,10,3,5,6] --> 77
+
+
+
+// 例題2
+// 整数によって構成される固定配列が与えられるので、配列内の最大値を返す、maxValueという関数を作成してください
+// [3,43,5,4,2,100,6] --> 100
+// [1,2,3,4,5,6] --> 6
+// [32,21,10,3,5,60,18,32,] --> 60
