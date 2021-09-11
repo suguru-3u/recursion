@@ -1613,3 +1613,65 @@ class Main{
 // [3,43,5,4,2,100,6] --> 100
 // [1,2,3,4,5,6] --> 6
 // [32,21,10,3,5,60,18,32,] --> 60
+
+
+class Main{
+    // 文の配列と文字を受け取り、その文字を含む文が何個あるかを返します。
+    // アルファベットの大文字、小文字は区別しないとする。
+    public static int totalFoundInSentence(String[] sentences, char c){
+        // 反復処理を使います。
+        int count = 0;
+        // 配列の中にあるそれぞれの要素のそれぞれの文字について調べます。
+        for (int i = 0; i < sentences.length ; i++){
+            String currentSentence = sentences[i];
+            for (int j = 0; j < currentSentence.length() ; j++){
+                // lower関数で全て小文字にして、1文字ずつチェックします。
+                if (Character.toLowerCase(currentSentence.charAt(j)) == c){
+                    //カウンターを増加します。
+                    count = count + 1;
+                    // breakキーワードによってforループから強制的に抜け出します。
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args){
+        String[] list2 = new String[]{"The wood", "Pecked peckers", "At the inn", "Tomorrowland"};
+
+        int totalFound = totalFoundInSentence(list2,'a');
+        System.out.println(totalFound);
+
+        String[] list3 = new String[]{"The wood", "Pecked peckers", "At the inn", "Tomorrowland"};
+
+        System.out.println(countChar(list3));
+    }
+
+    public static int countChar(String[] sentences){
+        int count = 0;
+        for(int i = 0; i < sentences.length; i++){
+            String currentSentence = sentences[i];
+            for (int j = 0; j < currentSentence.length(); j++) {
+                count++;
+            }
+        }
+        return count;
+    }
+}
+
+
+// 例題1
+// 文字列によって構成される固定配列が与えられるので、配列内に存在する全ての文字数をカウントする、countCharという関数を作成してください。
+
+// ["The wood", "Pecked peckers", "At the inn", "Tomorrowland"] -> 44
+// ["He","fumbled","in","the,darkness","looking","for","the","light","switch"] -> 47
+// ["I","am","never","at","home","on","Sundays"] -> 23
+
+
+// 例題2
+// 小文字によって構成される固定配列が与えられるので、n以降の文字（o,p,q,rなど）をカウントする、higherThanNという関数を作成してください。
+
+// ["the wood", "pecked peckers", "at the inn", "tomorrowland"] -> 20
+// ["he","fumbled","in","the","darkness","looking","for","the","light","switch"] -> 17
+// ["he","is","never","at","home","on","weekends"] -> 11
