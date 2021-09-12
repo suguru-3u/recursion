@@ -1658,6 +1658,18 @@ class Main{
         }
         return count;
     }
+
+    public static int higherThanN(String[] sentences){
+        String a = "abcdefghijkln";
+        int count = 0;
+        for(int n = 0; n < sentences.length ; n++){
+            String currentSentence = sentences[n];
+            for(int i = 0; i < currentSentence.length(); i++){
+                if(Character.codePointAt(currentSentence,i) >= 100) count++;
+            }
+        }
+        return count;
+    }
 }
 
 
@@ -1675,3 +1687,146 @@ class Main{
 // ["the wood", "pecked peckers", "at the inn", "tomorrowland"] -> 20
 // ["he","fumbled","in","the","darkness","looking","for","the","light","switch"] -> 17
 // ["he","is","never","at","home","on","weekends"] -> 11
+
+
+import java.util.ArrayList;
+
+class Main{
+    public static void main(String args[]){
+        ArrayList<Integer> cubeRangeArrayList = cubeRange(3,10);
+        printList(cubeRangeArrayList);
+
+        ArrayList<Integer> cubeRangeArrayList2 = evenRange(3,10);
+        printList(cubeRangeArrayList2);
+    }
+
+    public static ArrayList<Integer> cubeRange(int a, int b){
+        ArrayList<Integer> cubeRangeArrayList = new ArrayList<Integer>();
+        for(int i = a; i <= b ; i++){
+            cubeRangeArrayList.add(i*i*i);
+        }
+        return cubeRangeArrayList;
+    }
+
+    public static void printList(ArrayList<Integer> intArr){
+        for (int i = 0; i < intArr.size(); i++){
+            System.out.println(intArr.get(i));
+        }
+    }
+
+    public static ArrayList<Integer> evenRange(int a,int b){
+        ArrayList<Integer> intArrayList = new ArrayList<Integer>();
+        for(int i = a; i < b; i++){
+            if(i % 2 == 0){
+                intArrayList.add(i);
+            }
+        }
+        return intArrayList;
+    }
+}
+
+
+// 例題
+// a,bが与えられるので、aからbまでの中で2の倍数を空の動的配列に追加する関数、evenRangeという関数を作成し、printListによって出力してください。
+
+import java.util.ArrayList;
+
+class Main{
+    public static void main(String args[]){
+        ArrayList<String> fizzBuzzArrayList = fizzBuzz(45);
+
+        // printList(fizzBuzzArrayList);
+
+        ArrayList<Integer> fizzBuzzArrayList2 = primeNumber(45);
+
+        printList2(fizzBuzzArrayList2);
+    }
+
+    public static ArrayList<String> fizzBuzz(int x){
+        ArrayList<String> fizzBuzzArrayList = new ArrayList<String>();
+        for (int i = 1; i < x; ++i) {
+            if (i % 3 == 0 && i % 5 == 0) {
+                fizzBuzzArrayList.add("fizzBuzz");
+            } else if (i % 3 == 0) {
+                fizzBuzzArrayList.add("fizz");
+            } else if (i % 5 == 0) {
+                fizzBuzzArrayList.add("buzz");
+            } else {
+                String s = String.format("-%d-", i);
+                fizzBuzzArrayList.add(s);
+            }
+        }
+        return fizzBuzzArrayList;
+    }
+
+    public static void printList(ArrayList<String> intArr){
+        for (int i = 0; i < intArr.size(); i++){
+            System.out.println(intArr.get(i));
+        }
+    }
+
+    public static void printList2(ArrayList<Integer> intArr){
+        for (int i = 0; i < intArr.size(); i++){
+            System.out.println(intArr.get(i));
+        }
+    }
+
+    // public static ArrayList<Integer> primeNumber(int n){
+    //     ArrayList<Integer> nnnArrayList = new ArrayList<Integer>();
+    //     int count = 0;
+    //     for(int i = 2; i < n; i++){
+    //         count = 0;
+    //         for(int x = 1; x <= i ;n++){
+    //             if(i % x == 0) count++;
+    //             if(count > 2) break;
+    //         }
+    //         if(count > 3) nnnArrayList.add(i);
+    //     }
+    //     return nnnArrayList;
+    // }
+
+     public static ArrayList<Integer> primeNumber(int n){
+        ArrayList<Integer> primeList = new ArrayList<Integer>();
+        for (int i = 2; i <= n; i++) {
+            if (isPrime(i)) primeList.add(i);
+        }
+        return primeList;
+    }
+
+    public static boolean isPrime(int n) {
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0) return false;
+        }
+        return n > 1;
+    }
+}
+
+
+// 例題
+// 自然数nが与えられるので、1からnまでに含まれる素数を空の動的配列に追加する、primeNumberを作成し、printList(Integer)で出力してください。
+
+import java.util.ArrayList;
+import java.lang.Math;
+
+class Main{
+    public static void main(String args[]){
+        int[] zipcodeArr = {50013, 94512,90080,90190,90095,54810,85005};
+        ArrayList<Integer> ZipCodesMatched = zipcodeRange(zipcodeArr, 90094, 200);
+
+        for (int i = 0; i < ZipCodesMatched.size(); i++){
+           System.out.println(ZipCodesMatched.get(i));
+        }
+    }
+
+    public static ArrayList<Integer> zipcodeRange(int[] listOfZipcodes, int mainZip, int zipRange)
+    {
+        ArrayList<Integer> ZipCodesMatched = new ArrayList<Integer>();
+        for(int i = 0; i < listOfZipcodes.length; i++){
+            if(Math.abs(listOfZipcodes[i] - mainZip) <= zipRange){
+                ZipCodesMatched.add(listOfZipcodes[i]);
+            }
+        }
+
+        return ZipCodesMatched;
+    }
+}
