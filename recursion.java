@@ -1829,4 +1829,16 @@ class Main{
 
         return ZipCodesMatched;
     }
+
+    public static ArrayList<Integer> zipcodeRange(int[] listOfZipcodes, int mainZip, int zipRange)
+    {
+        ArrayList<Integer> ZipCodesMatched = new ArrayList<Integer>();
+        for(int i = 0; i < listOfZipcodes.length; i++){
+            if(Math.abs(listOfZipcodes[i] - mainZip) <= zipRange){
+                ZipCodesMatched.add(listOfZipcodes[i]);
+            }
+        }
+
+        return ZipCodesMatched;
+    }
 }
