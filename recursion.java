@@ -1842,3 +1842,40 @@ class Main{
         return ZipCodesMatched;
     }
 }
+
+// リスト内の要素の足し合わせ
+// easy
+// League は小学生向けに算数のゲームを作りました。ゲームではランダムに数字が入っている箱を選び、全ての数字を取り出します。
+// そして、取り出した数字から奇数番目のものを全て足し合わせ、合計値を求めていきます。数字が入った箱 intArr が与えられるので、
+// 全ての奇数番目を足した値を返す addEveryOtherElement という関数を定義してください。
+
+class Solution{
+    public static int addEveryOtherElement(int[] intArr){
+        //ここから書きましょう
+        int count = 0;
+        for(int i = 0; i < intArr.length ; i += 2){
+            count += intArr[i];
+        }
+        return count;
+    }
+}
+
+
+// 単語内の文字カウント
+// easy
+// Herbie は小学生向けに英語のゲームを作りました。単語が入っているバッグを用意し、単語の中に含まれる特定のアルファベットをカウントしていくというものです。
+// 単語のリスト bagOfWords とアルファベット keyCharacter が与えられるので、単語の中に特定のアルファベットが何回現れるかを返す、charInBagOfWordsCount という関数を定義してください。
+
+class Solution{
+    public static int charInBagOfWordsCount(String[] bagOfWords,char keyCharacter){
+        //ここから書きましょう
+        int count = 0;
+        for(int i = 0 ; i < bagOfWords.length ; i++){
+            for(int n = 0; n < bagOfWords[i].length(); n++){
+                if(bagOfWords[i].charAt(n) == keyCharacter) count++;
+            }
+        }
+        return count;
+    }
+}
+
