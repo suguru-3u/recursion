@@ -1879,3 +1879,90 @@ class Solution{
     }
 }
 
+
+// 文字コード
+// easy
+// Marcus は細い一本道を歩いていたら、1 人の老人に道を塞がれてしまいました。
+// 老人は「英単語を一つ出してください。私が出す英単語より文字の値が大きければ通してあげます」と話しました。文字の値は以下で定義されています。
+// - 文字の値とは単語に含まれるそれぞれの文字を文字コードによって 10 進数へと変換し、
+// 足し合わせたもの（例："abc" は文字コードによって a = 97、b = 98、c = 99 へと変換され、全部足し合わせて 294 と計算されます）
+// - 大文字と小文字の区別はしない（例：'A' == 'a' == 97となる）
+// Marcus の英単語 stringOperand1 と老人の英単語 stringOperand2 が与えられるので、
+// Marcus の方が大きければ true、等しいときと老人の方が大きいときは false を返す、isMarcusLarger という関数を定義してください。
+
+class Solution{
+    public static boolean isMarcusLarger(String stringOperand1,String stringOperand2){
+        //ここから書きましょう
+
+        return isMarcusLargerHelper(stringOperand1) > isMarcusLargerHelper(stringOperand2);
+    }
+
+    public static int isMarcusLargerHelper(String string){
+        
+        int total = 0;
+        String stringSmall = string.toLowerCase();
+
+        for(int i = 0; i < stringSmall.length() ; i++){
+            char letter = stringSmall.charAt(i);
+            total += (int)letter;
+        }
+        return total;
+    }
+}
+
+
+// サブスクリプションリスト
+// easy
+// Sanchez はメルマガを定期的に配信しています。
+// 会員のメールアドレスリスト emailList が与えられるので、正しく利用できるメールアドレスだけを配列として返す
+//  validEmailList という関数を定義してください。正しいメールアドレスの条件は以下の通りです。
+
+// - スペースがないこと
+
+// 　
+// - 「@」を 1 つのみ含んでいること
+
+// 　
+// - 「@」の後に「.」があること
+
+import java.util.Arrays;// ArrayListライブラリーを読み込みます。
+import java.util.ArrayList;
+
+class Solution{
+    public static String[] validEmailList(String[] emailList){
+        //ここから書きましょう
+        
+        ArrayList<String> strings = new ArrayList<String>();
+
+        for(int i = 0; i < emailList.length ; i++){
+
+            if(isEmailValid(emailList[i]))strings.add(emailList[i]);
+
+        }
+
+        String[] strings2 = new String[strings.size()];
+
+        for(int n = 0 ; n < strings2.length ; n++){
+            strings2[n] = strings.get(n);
+        }
+
+        return strings2;
+    }
+
+    public static boolean isEmailValid(String emailList){
+            int place = 0;
+
+            if(emailList.indexOf(" ") > 0)return false;
+
+            if(emailList.indexOf("@") == -1)return false;
+
+            place = emailList.indexOf("@");
+            String a = emailList.substring(place + 1);
+            System.out.println(a);
+            if(a.indexOf("@") > 0)return false;
+
+            if(emailList.substring(place).indexOf(".") == -1)return false;
+
+            return true;
+    }
+}
