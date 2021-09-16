@@ -1966,3 +1966,93 @@ class Solution{
             return true;
     }
 }
+
+
+ ArrayList<String> validEmailList = new ArrayList<>();
+        for (int i = 0; i < emailList.length; i++) {
+            if (isValidEmail(emailList[i])) validEmailList.add(emailList[i]);
+        }
+        // 詰め替え
+        String[] res = new String[validEmailList.size()];
+        for (int i = 0; i < validEmailList.size(); i++)
+            res[i] = validEmailList.get(i);
+        return res;
+
+
+   // String string = "abcdefghijklmnopqrstuvwxyz";
+
+        // int numberFirst = generateAlphabetHelper(firstAlphabet,string);
+        // int numberEnd = generateAlphabetHelper(secondAlphabet,string);
+
+        // char[] chars = new char[numberEnd];
+
+        // for(int i = numberFirst; i <= numberEnd; i++){
+        //     chars[i] = string.charAt(i);
+        // }
+        // return chars;
+
+   // for(int i = 0 ; i < string.length(); i++){
+        //     if(string.charAt(i) == oneLetter){
+        //         place = i;
+        //         break;
+        //     }
+        // }
+        // return place;
+
+//     間のアルファベット
+// easy
+// Sam は a駅、b駅、...y駅、z駅とアルファベットが各駅の名前になっている路線の電車に乗っています。
+// Sam は自分が乗った駅から降りる駅まで、全ての停止場所を確認しました。乗車駅 firstAlphabet、降車駅 secondAlphabet が与えられるので、
+// 停止駅を配列として返す、generateAlphabet という関数を定義してください。ただし、アルファベットは大文字と小文字を区別せず、全て小文字で表示し、a に近い文字から返すようにしてください。
+
+import java.util.Arrays;
+
+class Solution{
+    public static char[] generateAlphabet(char firstAlphabet,char secondAlphabet){
+        //ここから書きましょう
+        
+       // 各文字を小文字に変えます
+        char first = Character.toLowerCase(firstAlphabet);
+        char second = Character.toLowerCase(secondAlphabet);
+
+        // 各文字を文字コードに変換し、どちらがaに近い文字か判別します。値が小さい方がaに近くなります
+        int smaller = (int)first > (int)second ? (int)second : (int)first;
+        int larger = (int)first < (int)second ? (int)second : (int)first;
+        char[] res = new char[larger - smaller + 1];
+
+         // aに近い文字から順に配列へ格納していきます。
+        for (int i = smaller; i < larger + 1; i++){
+            // 文字コードを文字へ変換して、配列に格納します
+            res[i - smaller] = (char)i;
+        }
+
+        return res;
+    }
+     
+    // public static int generateAlphabetHelper(char cahrs){
+
+    //     char oneLetter = Character.toLowerCase(cahrs);
+    //     return (int)oneLetter;
+    // }
+
+    // public static char[] generateAlphabetHelper2(int first,int end){
+    //      if( first < end ){
+    //         char[] chars = new char[end - first + 1];
+    //         int total = end - first;
+
+    //         for(int i = 0; i <= total ; i++){
+    //             chars[i] = (char)first++;
+    //         }
+    //         return chars;
+    //     }else{
+    //         char[] chars = new char[first - end + 1];
+    //         int total = first - end;
+
+    //         for(int i = 0; i <= total ; i++){
+    //             chars[i] = (char)end++;
+    //         }
+    //         return chars;
+    //     }
+    // }
+
+}
