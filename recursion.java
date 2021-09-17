@@ -2056,3 +2056,204 @@ class Solution{
     // }
 
 }
+
+
+import java.util.ArrayList;// ArrayListライブラリーを読み込みます。
+import java.util.Arrays; // Arraysライブラリーを読み込みます。
+
+// 動物
+class Animal {
+    public String species;
+    public double weightKg;
+    public double heightM;
+    public boolean predator;
+
+    public Animal(String species, double weightKg, double heightM, boolean predator){
+        this.species = species;
+        this.weightKg = weightKg;
+        this.heightM = heightM;
+        this.predator = predator;
+    }
+
+    public void domesticate(){
+        this.predator = false;
+    }
+}
+
+// ハンター
+class Hunter {
+    public String name;
+    public int age;
+    public double weightKg;
+    public double heightM;
+    public double strength;
+    public double cageCubicMeters;
+
+    public Hunter(String name, int age, double weightKg, double heightM, double strength, double cageCubicMeters){
+        this.name = name;
+        this.age = age;
+        this.weightKg = weightKg;
+        this.heightM = heightM;
+        this.strength = strength;
+        this.cageCubicMeters = cageCubicMeters;
+    }
+
+    public boolean canCaptureAnimal(Animal animal){
+        if ((this.strengthKg() >= animal.weightKg && this.cageCubicMeters >= animal.heightM) && !animal.predator){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean attemptToDomesticate(Animal animal){
+        if (this.strengthKg() <= animal.weightKg * 2){
+            return false;
+        }
+        animal.domesticate();
+        return true;
+    }
+
+    public double strengthKg(){
+        return this.weightKg * this.strength;
+    }
+}
+
+class Main{
+    public static void printHunter(Hunter hunter){
+        System.out.println("The hunter's name is: " + hunter.name + ". This hunter can carry: " + hunter.strengthKg() + "kg and has a cage " + hunter.cageCubicMeters + " cubic meters wide");
+    }
+
+    public static void printAnimal(Animal animal){
+        System.out.println("The animal species is: " + animal.species + ". It's weight is: " + animal.weightKg + "kg and its height is: " + animal.heightM + "m. " + ((animal.predator) ? "It is a predator!" : "It is a peaceful animal."));
+    }
+
+    // 捕まえた動物を返す関数
+    public static Animal[] capturedAnimals(Hunter hunter, Animal[] animalList){
+        ArrayList<Animal> capturedAnimalList = new ArrayList<Animal>();
+        for (int i = 0; i < animalList.length ; i++){
+            // もし、ハンターが動物を捕獲した場合、配列の後ろに追加します。
+            if (hunter.canCaptureAnimal(animalList[i])){
+                System.out.println("Capturing..." + animalList[i].species);
+                capturedAnimalList.add(animalList[i]);
+            }
+        }
+
+        return capturedAnimalList.toArray(new Animal[capturedAnimalList.size()]);
+    }
+
+    public static void printAnimals(Animal[] animalList){
+        System.out.println("--Listing Animals--");
+        // それぞれの動物にアクセスするためにfor文を使います。
+        // 各animal_listをループします。
+        for (int i = 0; i < animalList.length; i++){
+            printAnimal(animalList[i]);
+        }
+        System.out.println("------------------------");
+    }
+
+    public static void main(String[] args){
+        // 各動物
+        Animal tiger1 = new Animal("Tiger", 290, 2.6, true);
+        Animal tiger2 = new Animal("Tiger", 300, 2.3, true);
+        Animal bear1 = new Animal("Bear", 250, 2.8, true);
+        Animal snake1 = new Animal("Snake", 250, 12.8, true);
+        Animal dog1 = new Animal("Dog", 90, 1.2, false);
+        Animal cat1 = new Animal("Cat", 40, 0.5, false);
+        Animal cow1 = new Animal("Cow", 1134, 1.5, false);
+
+        // 各ハンター
+        Hunter hunternator = new Hunter("Hunternator", 30, 124.73, 1.85, 15, 3);
+        Hunter hunterChild = new Hunter("Hunter Child Of The Small Giants", 10, 50, 1.2, 0.6, 1);
+
+        // 関数の呼び出し
+        printHunter(hunternator);
+        printAnimal(tiger1);
+
+        Animal[] animals = new Animal[]{tiger1, tiger2, bear1, snake1, dog1, cat1, cow1};
+        System.out.println("Animals in the wild: ");
+        printAnimals(animals);
+
+        System.out.println("Animals captured by: " + hunternator.name + "");
+        printAnimals(capturedAnimals(hunternator, animals));
+
+        System.out.println("Animals captured by: " + hunterChild.name + "");
+        printAnimals(capturedAnimals(hunterChild, animals));
+
+        System.out.println("" + hunternator.name + " is ready to bring peace to the animal kingdom.");
+
+        // domesticateTheAnimalsという関数を作成してください。この関数はハンターと動物のリストを受け取り、動物の状態を変更します。つまりハンターが動物より圧倒的に強ければ、飼い慣らされます。
+        
+
+        domesticateTheAnimals(hunternator, animals);
+        System.out.println("Animals captured by: " + hunternator.name + "");
+        printAnimals(capturedAnimals(hunternator, animals));
+    }
+
+    public static void domesticateTheAnimals(Hunter hunter, Animal[] animalList){
+        for(int i = 0; i < animalList.length; i++){
+            hunter.attemptToDomesticate(animalList[i]);
+        }
+    }
+}
+
+class Main{
+	public static double getTotalForProductList(double[][] product2dPriceList){
+		double finalTotal = 0;
+	    for (int i = 0; i < product2dPriceList.length; i++){
+	        double[] priceList = product2dPriceList[i];
+	        double price = priceList[0];
+	        double total = price;
+	        // 最初の値の後に開始
+	        for (int j = 1; j < priceList.length; j++){
+	            double multiplier = priceList[j];
+	            total += price * multiplier;
+	        }
+	        // finalTotalを足していきます。
+	        System.out.println("Total for current item is:" + (total));
+	        finalTotal += total;
+	    }
+	    return finalTotal;
+	}
+	public static void main(String[] args) {
+		// 商品の配列
+		double[] product1 = {100, 0.1, 0.02, 0.03, 0.02};
+		double[] product2 = {50, -0.5, 0.1, 0.05, 0.02};
+		double[] product3 = {34, 0.05, 0.2, 0.03, 0.1};
+		double[] product4 = {10, -0.2, 0.3, 0.05, 0.03};
+
+		// Shopping cartは全てのアイテムを含んでいます。2次元配列。
+		double[][] shoppingCartArray = new double [][]{product1, product2, product3, product4};
+		System.out.println(getTotalForProductList(shoppingCartArray));
+
+		// 6
+		int[][] array1 = new int [][]{{1,1,2,3,2}, {5,5,1,5,2}, {3,5,2,3,1}, {1,2,3,6,3}};
+		System.out.println(maxValue(array1));
+
+		// 81
+		int[][] array2 = new int [][]{{0,9,1,4,5}, {1,3,3,4,7}, {11,12,34,81,12}, {12,24,63,76,13}};
+		System.out.println(maxValue(array2));
+
+		// 243
+		int[][] array3 = new int [][]{{-2,39,94,12,49}, {11,35,84,21,32}, {157,243,121,23,33}, {11,43,65,84,29}};
+		System.out.println(maxValue(array3));
+	}
+
+	public static int maxValue(int[][] list2){
+		int maxCount = list2[0][0];
+		for(int i = 0; i < list2.length ; i++){
+			for(int j = 0; j < list2[i].length; j++){
+				if(maxCount < list2[i][j]) maxCount = list2[i][j];
+			}
+		}
+		return maxCount;
+	}
+}
+
+// 例題
+// 二次元配列(固定配列)が与えられるので、最大値を返す、maxValueという関数を作成してください。
+
+
+// {{1,1,2,3,2}, {5,5,1,5,2}, {3,5,2,3,1}, {1,2,3,6,3}} --> 6
+// {{0,9,1,4,5}, {1,3,3,4,7}, {11,12,34,81,12}, {12,24,63,76,13}} --> 81
+// {{-2,39,94,12,49}, {11,35,84,21,32}, {157,243,121,23,33}, {11,43,65,84,29}} --> 243
