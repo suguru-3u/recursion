@@ -2257,3 +2257,56 @@ class Main{
 // {{1,1,2,3,2}, {5,5,1,5,2}, {3,5,2,3,1}, {1,2,3,6,3}} --> 6
 // {{0,9,1,4,5}, {1,3,3,4,7}, {11,12,34,81,12}, {12,24,63,76,13}} --> 81
 // {{-2,39,94,12,49}, {11,35,84,21,32}, {157,243,121,23,33}, {11,43,65,84,29}} --> 243
+
+class Main{
+	public static double getTotalForProductList(double[][] product2dPriceList){
+		double finalTotal = 0;
+	    for (int i = 0; i < product2dPriceList.length; i++){
+	        double[] priceList = product2dPriceList[i];
+	        double price = priceList[0];
+	        double total = price;
+	        // 最初の値の後に開始
+	        for (int j = 1; j < priceList.length; j++){
+	            double multiplier = priceList[j];
+	            total += price * multiplier;
+	        }
+	        // finalTotalを足していきます。
+	        System.out.println("Total for current item is:" + (total));
+	        finalTotal += total;
+	    }
+	    return finalTotal;
+	}
+	public static void main(String[] args) {
+		// 商品の配列
+		double[] product1 = {100, 0.1, 0.02, 0.03, 0.02};
+		double[] product2 = {50, -0.5, 0.1, 0.05, 0.02};
+		double[] product3 = {34, 0.05, 0.2, 0.03, 0.1};
+		double[] product4 = {10, -0.2, 0.3, 0.05, 0.03};
+
+		// Shopping cartは全てのアイテムを含んでいます。2次元配列。
+		double[][] shoppingCartArray = new double [][]{product1, product2, product3, product4};
+		System.out.println(getTotalForProductList(shoppingCartArray));
+
+		// 6
+		int[][] array1 = new int [][]{{1,1,2,3,2}, {5,5,1,5,2}, {3,5,2,3,1}, {1,2,3,6,3}};
+		System.out.println(maxValue(array1));
+
+		// 81
+		int[][] array2 = new int [][]{{0,9,1,4,5}, {1,3,3,4,7}, {11,12,34,81,12}, {12,24,63,76,13}};
+		System.out.println(maxValue(array2));
+
+		// 243
+		int[][] array3 = new int [][]{{-2,39,94,12,49}, {11,35,84,21,32}, {157,243,121,23,33}, {11,43,65,84,29}};
+		System.out.println(maxValue(array3));
+	}
+
+	public static int maxValue(int[][] list2){
+		int maxCount = list2[0][0];
+		for(int i = 0; i < list2.length ; i++){
+			for(int j = 0; j < list2[i].length; j++){
+				if(maxCount < list2[i][j]) maxCount = list2[i][j];
+			}
+		}
+		return maxCount;
+	}
+}
