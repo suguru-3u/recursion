@@ -2319,4 +2319,14 @@ class Main{
 		}
 		return maxCount;
 	}
+
+     public static int maxValue(int[][] list2){
+		int maxCount = list2[0][0];
+		for(int i = 0; i < list2.length ; i++){
+			for(int j = 0; j < list2[i].length; j++){
+				if(maxCount < list2[i][j]) maxCount = list2[i][j];
+			}
+		}
+		return maxCoun
+        
 }
