@@ -2330,3 +2330,37 @@ class Main{
 		return maxCoun
         
 }
+
+// 最大文字列
+// easy
+// Miles は英単語カードを持って勉強していましたが、手元にある単語を文字コードへ変換した時、最も大きい値が何になるか気になりました。
+// 英単語カード stringList が与えられるので、最も値が大きくなった単語が何枚目にあるかを返す maxAscilString という関数を定義してください
+// （ここでは初めの値を 0 枚目とします）。ただし、以下の条件に気をつけてください。
+// - 文字列に含まれるそれぞれの文字を文字コードによって 10 進数へと変換し、足し合わせる。（例："abc" は文字コードによって、a = 97、b = 98、c = 99 へと変換され、全部足し合わせて 294 と計算されます）
+// - 大文字と小文字の区別はありません。（例：'A' == 'a' == 97となる）
+
+class Solution{
+    public static int maxAscilString(String[] stringList){
+        //ここから書きましょう
+        int maxValue = sumOfAscii(stringList[0]);
+        int maxIndex = 0;
+      
+        for(int i = 1 ; i < stringList.length; i++){
+            int curr =  sumOfAscii(stringList[i]);
+            if(maxValue < curr){
+                maxValue = curr;
+                maxIndex = i;
+            } 
+        }
+        return maxIndex;
+    }
+
+    public static int sumOfAscii(String string){
+        int total = 0;
+
+        for(int i = 0; i < string.length(); i++){
+            total += (int)Character.toLowerCase(string.charAt(i));
+        }
+        return total;
+    }
+}
