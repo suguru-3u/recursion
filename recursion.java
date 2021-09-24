@@ -2364,3 +2364,45 @@ class Solution{
         return total;
     }
 }
+
+
+// 部屋替え
+// easy
+// Glover は定期的に部屋替えを行うルールがあるシェアハウスに住んでいます。
+// くじ引きで数字をランダムに引いて、その数だけ住人が部屋をずらす仕組みです
+// （例：数字 2 を引いたとき、部屋番号 1 に住んでいる人は 3 に移動します）。
+// 住人たちの ID をまとめた ids と、くじ引きで引いた自然数 n が与えられるので、住人の位置をずらさせた配列を返す、rotateByTimes という関数を作成してください。
+
+import java.util.Arrays;
+
+class Solution{
+    public static int[] rotateByTimes(int[] ids,int n){
+        //ここから書きましょう
+        int idsLength = ids.length;
+        int[] rotate = new int[idsLength];
+
+        for(int i = 0 ; i < ids.length ; i++){
+            int count = placeChange(i,n,rotate.length);
+            rotate[count] = ids[i];
+
+        }
+        return rotate;
+    }
+
+
+    public static int placeChange(int number,int n,int length){
+        if(number + n >= length)return (number + n) % length;
+        return number + n;
+    }
+}
+
+class Solution{
+    public static int[] rotateByTimes(int[] ids,int n){
+        int[] resultList = new int[ids.length];
+
+        for(int i = 0; i < ids.length; i++){
+            resultList[(i + n) % ids.length] = ids[i];
+        }
+        return resultList;
+    }
+}
