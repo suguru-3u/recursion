@@ -2406,3 +2406,59 @@ class Solution{
         return resultList;
     }
 }
+
+
+// ページ付け
+// easy
+// Joe は web サイト作成をしており、pagination を担当することになりました。
+// URL によって構成される配列 urls、各ページのサイズ pageSize、特定のページ page が与えられるので、
+// 特定のページに表示される URL を返す、websitePagination という関数を作成してください。
+// 例えば、url1, url2, url3, url4, url5, url6, url7, url8, url9 の一覧があり、
+// 1 ページに含まれる URL の数が 3、現在作成しているページが 2 ページ目の場合、各ページに 3 つの URL が含まれることになるので、
+// 返される配列は 2 ページに含まれる url4, url5, url6 になります。
+
+import java.util.Arrays;
+
+class Solution{
+    public static String[] websitePagination(String[] urls,int pageSize,int page){
+        //ここから書きましょう
+
+        // if(page == 1){
+        //     String[] webpage = new String[pageSize];
+        //     for(int i = 0; i < pageSize; i++){
+        //     webpage[i] = urls[i];
+        //     }
+        //     return webpage;
+        // }else{
+        //     int count = pageSize * page - page -1;
+        //     if(urls.length - count < pageSize){
+        //         int end = urls.length - count;
+        //         String[] webpage = new String[end];
+        //         for(int i = 0; i < end; i++){
+        //             webpage[i] = urls[count];
+        //             count ++;
+        //         }
+        //         return webpage;
+        //     }else{
+        //         String[] webpage = new String[pageSize];
+        //         for(int i = 0; i < pageSize; i++){
+        //             webpage[i] = urls[count];
+        //             count ++;
+        //         }
+        //         return webpage;
+        //     }
+        // }   
+
+         // 現在のページにあるurlの最初のインデックス
+        int index = pageSize * (page - 1);
+        String[] output = index + pageSize < urls.length ? new String[pageSize] : new String[urls.length - index];
+
+        // pageSize分だけurlを取得していきます
+        // インデックスが配列のサイズを超えるか、urlをoutputに格納した回数がpageSizeに到達したら処理を終えます
+        for (int i = 0; i + index < urls.length && i < pageSize; i++){
+            output[i] = urls[i + index];
+        }
+
+        return output;
+    }
+}
