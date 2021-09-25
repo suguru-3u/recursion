@@ -2487,3 +2487,70 @@ class Solution{
         // return false;
     }
 }
+
+
+// 山型
+// medium
+// Bond はクラスの文化祭で行う劇で背景を制作することになり、現在は山を作っています。
+// 各地点での山の高さの一覧 height が与えられるので、山型になっているかどうか判断する isMountain という関数を定義してください。
+// 山型の条件は以下の通りです。
+
+
+class Solution{
+    public static boolean isMountain(int[] height){
+        //ここから書きましょう
+        // if(height.length < 3)return false;
+
+        // int upCount = 0;
+        // int parallel = 0;
+        // int downCOunt = 0;
+
+        // boolean up = false; 
+        // boolean down = false;
+
+        // for(int i = 1 ; i < height.length ; i++){
+        //     if(height[i - 1] < height[i]){
+        //         up = true;  
+        //         upCount++;
+        //         if(down == true && upCount > 1)return false;
+        //     }else if(height[i - 1] == height[i])return false;
+        //     else{
+        //         down = true;
+        //         downCOunt++;
+        //         if(up == true && downCOunt > 1)return false;
+        //     }
+        // }
+
+        // if(up == false || down == false)return false;
+
+        // return true;
+
+        int l = height.length;
+        if (l <= 0 || height[0] > height[1]) return false;
+
+        // 最大値・最小値・インデックスの初期値
+        int max = (int)-Integer.MAX_VALUE;
+        int min = (int)Integer.MAX_VALUE;
+        System.out.println(max);
+        System.out.println(min);
+        int i = 0;
+
+        // 昇順が終わるまで処理を繰り返します
+        while (i < l && height[i] > max) {
+            max = height[i];
+            i++;
+        }
+
+        // 昇順のみの配列の場合、falseを返します
+        if (i == l) return false;
+
+        // 降順が終わるまで処理を繰り返します
+        while (i < l && height[i] < min) {
+            min = height[i];
+            i++;
+        }
+
+        // 配列の末尾まで降順が続いていなかったらfalseを返します
+        return i == l;
+    }
+}
