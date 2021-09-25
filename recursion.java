@@ -2462,3 +2462,28 @@ class Solution{
         return output;
     }
 }
+
+// シャトルラン
+// easy
+// E 高校の野球部は定期的に 20 メートルシャトルランを行なっており、1 日に複数回記録を取っており、
+// 1 回でも記録が減少した選手にペナルティを与える部則がありました。
+// シャトルランの記録 records が与えられるので、ペナルティが与えられるか判定する、
+// hasPenalty という関数を定義してください。シャトルランは本来は 247 までしか存在しませんが、今回はいかなる自然数も対象とします。
+
+class Solution{
+    public static boolean hasPenalty(int[] records){
+        //ここから書きましょう
+        // 前の要素より減少した要素が現れた瞬間、trueを返します
+        for (int i = 1; i < records.length; i++) {
+            if (records[i-1] > records[i]) return true;
+        }
+        return false;
+
+        // int record = 0;
+        // for(int i = 0; i < records.length ; i++){
+        //     if(records[i] < record)return true;
+        //     record = records[i];
+        // }
+        // return false;
+    }
+}
