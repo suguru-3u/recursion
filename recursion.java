@@ -2613,3 +2613,63 @@ class Solution{
         return i == l;
     }
 }
+
+
+class Solution{
+    public static boolean isMountain(int[] height){
+        //ここから書きましょう
+        // if(height.length < 3)return false;
+
+        // int upCount = 0;
+        // int parallel = 0;
+        // int downCOunt = 0;
+
+        // boolean up = false; 
+        // boolean down = false;
+
+        // for(int i = 1 ; i < height.length ; i++){
+        //     if(height[i - 1] < height[i]){
+        //         up = true;  
+        //         upCount++;
+        //         if(down == true && upCount > 1)return false;
+        //     }else if(height[i - 1] == height[i])return false;
+        //     else{
+        //         down = true;
+        //         downCOunt++;
+        //         if(up == true && downCOunt > 1)return false;
+        //     }
+        // }
+
+        // if(up == false || down == false)return false;
+
+        // return true;
+
+        int l = height.length;
+        if (l <= 0 || height[0] > height[1]) return false;
+
+        // 最大値・最小値・インデックスの初期値
+        int max = (int)-Integer.MAX_VALUE;
+        int min = (int)Integer.MAX_VALUE;
+        System.out.println(max);
+        System.out.println(min);
+        int i = 0;
+
+        // 昇順が終わるまで処理を繰り返します
+        while (i < l && height[i] > max) {
+            max = height[i];
+            i++;
+        }
+
+        // 昇順のみの配列の場合、falseを返します
+        if (i == l) return false;
+
+        // 降順が終わるまで処理を繰り返します
+        while (i < l && height[i] < min) {
+            min = height[i];
+            i++;
+        }
+
+        // 配列の末尾まで降順が続いていなかったらfalseを返します
+        return i == l;
+    }
+}
