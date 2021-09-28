@@ -2673,3 +2673,221 @@ class Solution{
         return i == l;
     }
 }
+
+
+class Student{
+    // インスタンス変数
+    public int id;
+    public String firstName;
+    public String lastName;
+    public int age;
+    public int grade;
+
+    // インスタンス変数を初期化するコンストラクタ
+    public Student(String firstName, String lastName, int age, int grade){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.grade = grade;
+    }
+};
+
+class Main{
+    // オブジェクトによる値渡しなので、実パラメータの状態が変化します。この場合、学生IDの状態が変更されます。
+    public static void setStudentIds(Student[] students){
+        for (int i = 0; i < students.length; i++){
+            // メソッドチェーン
+            // idをインデックス + 1に設定します。
+            students[i].id = i+1;
+            System.out.println("Student " + students[i].firstName + " has an id of " + students[i].id);
+        }
+    }
+
+    // idによってstudentを検索して、姓名を返します。
+    // この関数の計算量はO(1)です。
+    public static String searchForStudent(int id, Student[] listOfStudents){
+        // 現実世界では、idは0からではなく1からスタートするので、idから1引きます。
+        int correctId = id-1;
+        // idがstudentの数より大きい時は、"Not FOUND!"を返します。
+        if (!(0 <= correctId && correctId <= listOfStudents.length - 1)){
+            return "Not FOUND!";
+        }
+        Student studentFound = listOfStudents[correctId];
+        return studentFound.firstName + " " + studentFound.lastName;
+    }
+
+    // idによってstudentを検索して、姓名を返します。
+    // この関数の計算量はO(n)です。
+    public static String searchForStudentLinear(int id, Student[] listOfStudents){
+        for (int i = 0; i < listOfStudents.length; i++){
+            if(listOfStudents[i].id == id){
+                Student studentFound = listOfStudents[i];
+                return studentFound.firstName + " " + studentFound.lastName;
+            }
+        }
+        return "Not FOUND!";
+    }
+
+    public static void main(String[] args){
+        // Studentオブジェクトの配列を生成します。
+        Student[] students = {
+            new Student("Paula", "Cooper", 15, 10),
+            new Student("Daniel", "Roger", 14, 10),
+            new Student("Trevor", "Nishi", 14, 9),
+            new Student("Kei", "Hideyoshi", 16, 11)
+        };
+
+        // idを設定します。
+        setStudentIds(students);
+
+        // idが3の学生を探します。
+        System.out.println("Search for id of 3 constant time - " + searchForStudent(3, students));
+        System.out.println("Search for id of 3 linear time - " + searchForStudentLinear(3, students));
+
+        // idが10の学生を探します。
+        System.out.println("Search for id of 10 constant time - " + searchForStudent(10, students));
+        System.out.println("Search for id of 10 linear time - " + searchForStudentLinear(10, students));
+    }
+}
+
+
+import java.util.Map; // Mapライブラリーを読み込みます。
+import java.util.HashMap; // HashMapライブラリーを読み込みます。
+
+class Main{
+    public static void main(String[] args){
+        // ペットを表現するための連想配列を利用します。Javaでは連想配列はMapのHashMap型で実装することができます。
+        // 静的型付け言語なので、データ型を指定する必要があります。map<key型,value型>
+        // 動的配列(1)のArrayListで説明したように、HashMapもデータ型はラッパークラスを指定する必要があります。つまりint型を格納したい場合はHashMap<Integer,Integer>のように使用します。
+
+        //putメソッドでデータを追加するごとができます。put(key, value)
+        Map<String, String> myPet = new HashMap<String, String>();
+        myPet.put("name","fluffy");
+        myPet.put("species", "Pomeranian");
+        myPet.put("furColor", "Brown");
+        myPet.put("born", "2018/05/06");
+        myPet.put("favoriteFood", "Carrot sticks");
+
+        // nameを取得します。getメソッドを使います。
+        System.out.println(myPet.get("name"));
+
+        // ペットのfavorite foodを取得します。
+        System.out.println(myPet.get("favoriteFood"));
+
+        // このmyPet辞書にさらに情報を追加します。
+        myPet.put("napTimes", "11:00am, 3:30pm, 9:00pm");
+        System.out.println(myPet.get("napTimes"));
+
+        Map<String,Integer> cars = new HashMap<String,Integer>();
+        cars.put("Honda Civic" , 24000);
+
+        System.out.println(cars.get("Honda Civic"));
+
+    }
+
+
+
+}
+
+
+// 例題1
+// 以下の車種,値段のペアを連想配列によって作成してください。
+
+// Honda Civic -> 24,000
+// Chevrolet Traverse -> 30,000
+// Toyota Camry -> 25,000
+// Subaru Outback -> 27,000
+// Tesla X -> 100,000
+
+// Tesla XとToyota Camryを取得してください。
+
+// BMW X3 -> 42,000 を追加してください。
+
+
+import java.util.Map; // Mapライブラリーを読み込みます。
+import java.util.HashMap; // HashMapライブラリーを読み込みます。
+import java.util.Arrays;
+import java.util.ArrayList;
+
+
+class Main{
+
+    public static void main(String[] args){
+        // デスクトップコンピュータには以下の部品があります マザーボード、CPU、RAM、GPU、ストレージ、電源
+        HashMap<String, ArrayList<HashMap<String, String>>> desktopComputer = new HashMap<String, ArrayList<HashMap<String, String>>>();
+
+        //マザーボード
+        ArrayList<HashMap<String, String>> motherboardMapList = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> motherboardMap = new HashMap<String, String>();
+        motherboardMap.put("title","AGUX 203-4344 Extreme");
+        motherboardMapList.add(motherboardMap);
+
+        desktopComputer.put("motherboard",motherboardMapList);
+
+        //CPU
+        ArrayList<HashMap<String, String>> cpuMapList = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> cpuMap = new HashMap<String, String>();
+        cpuMap.put("title","Fantel l9 extreme 16 core 4.5Ghz");
+        cpuMapList.add(cpuMap);
+
+        desktopComputer.put("CPU", cpuMapList);
+
+        //RAM
+        ArrayList<HashMap<String, String>> map2 = new ArrayList<HashMap<String, String>>();//Mapのリストを作る動的
+        desktopComputer.put("RAM", map2);//(key=RAM,value=map2)をput
+        //RAMリストの0番目
+        HashMap<String, String> mapRAM0 = new HashMap<String,String>();
+        mapRAM0.put("title", "Zolik DDR6 MegaHyper 32gb");
+        mapRAM0.put("sizeMb", "32000");
+        mapRAM0.put("clockSpeedMHz", "3000");
+        //RAMリストの1番目
+        HashMap<String, String> mapRAM1 = new HashMap<String,String>();
+        mapRAM1.put("title", "Zolik DDR6 MegaHyper 32gb");
+        mapRAM1.put("sizeMb", "32000");
+        mapRAM1.put("clockSpeedMHz", "3000");
+        //リストmap2に入れる
+        map2.add(mapRAM0);
+        map2.add(mapRAM1);
+
+        //storage
+        ArrayList<HashMap<String, String>> map3 = new ArrayList<HashMap<String, String>>();//Mapのリストを作る動的
+        desktopComputer.put("storage", map3);//(key=storage,value=map3)をput
+        //strageリストの0番目
+        HashMap<String, String> mapStrage0 = new HashMap<String,String>();
+        mapStrage0.put("title", "Skygate ST3433 4TB HDD");
+        mapStrage0.put("sizeGb", "4000");
+        //strageリストの1番目
+        HashMap<String, String> mapStrage1 = new HashMap<String,String>();
+        mapStrage1.put("title", "Skygate ST3433 1TB HDD");
+        mapStrage1.put("sizeGb", "4000");
+        //リストmap3に入れる
+        map3.add(mapStrage0);
+        map3.add(mapStrage1);
+
+        //GPU
+        ArrayList<HashMap<String, String>> gpuMapList = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> gpuMap = new HashMap<String, String>();
+        gpuMap.put("title","Livia jtx3400i");
+        gpuMapList.add(gpuMap);
+
+        desktopComputer.put("GPU",gpuMapList);
+
+        //powerSupply
+        ArrayList<HashMap<String, String>> psuMapList = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> psuMap = new HashMap<String, String>();
+        psuMap.put("title","Fursair Platinum 1200W PSU DirectY 12GB VRAM");
+        psuMapList.add(psuMap);
+        desktopComputer.put("powerSupply", psuMapList);
+
+        // 値を出力します。
+        System.out.println("CPU -" + desktopComputer.get("CPU").get(0).get("title"));
+        System.out.println("\nMotherboard -" + desktopComputer.get("motherboard").get(0).get("title"));
+        System.out.println("\nRAM -" + desktopComputer.get("RAM"));
+        System.out.println("\nPower supply -" + desktopComputer.get("powerSupply").get(0).get("title"));
+        System.out.println("\nStorage -" + desktopComputer.get("storage"));
+
+        // System.out.println("GPU + " + titleRam1);
+        System.out.println("----------Printing System-----------\n");
+        System.out.println(desktopComputer);
+     }
+}
