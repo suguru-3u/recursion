@@ -2891,3 +2891,42 @@ class Main{
         System.out.println(desktopComputer);
      }
 }
+
+
+import java.util.Map; // Mapライブラリーを読み込みます。
+import java.util.HashMap; // HashMapライブラリーを読み込みます。
+
+class Main{
+    public static void main(String[] args){
+        // ペットを表現するための連想配列を利用します。Javaでは連想配列はMapのHashMap型で実装することができます。
+        // 静的型付け言語なので、データ型を指定する必要があります。map<key型,value型>
+        // 動的配列(1)のArrayListで説明したように、HashMapもデータ型はラッパークラスを指定する必要があります。つまりint型を格納したい場合はHashMap<Integer,Integer>のように使用します。
+
+        //putメソッドでデータを追加するごとができます。put(key, value)
+        Map<String, String> myPet = new HashMap<String, String>();
+        myPet.put("name","fluffy");
+        myPet.put("species", "Pomeranian");
+        myPet.put("furColor", "Brown");
+        myPet.put("born", "2018/05/06");
+        myPet.put("favoriteFood", "Carrot sticks");
+
+        // nameを取得します。getメソッドを使います。
+        System.out.println(myPet.get("name"));
+
+        // ペットのfavorite foodを取得します。
+        System.out.println(myPet.get("favoriteFood"));
+
+        // このmyPet辞書にさらに情報を追加します。
+        myPet.put("napTimes", "11:00am, 3:30pm, 9:00pm");
+        System.out.println(myPet.get("napTimes"));
+
+        Map<String,Integer> cars = new HashMap<String,Integer>();
+        cars.put("Honda Civic" , 24000);
+
+        System.out.println(cars.get("Honda Civic"));
+
+    }
+
+
+
+}
