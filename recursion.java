@@ -3049,3 +3049,84 @@ class Main{
 
     }
 }
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.ArrayList;
+
+class Main{
+    public static String[] fireEmployees(String[] employees,String[] unemployed){
+        HashMap<String, String> hashmap = new HashMap<String, String>();
+        ArrayList<String> resultDynamic = new ArrayList<String>();
+
+        // 解雇リストにある要素を連想配列に追加
+        for (int i = 0; i < unemployed.length; i++){
+            hashmap.put(unemployed[i], unemployed[i]);
+        }
+
+        // 連想配列にない要素を追加
+        for (int i = 0; i < employees.length; i++){
+            if(!hashmap.containsKey(employees[i])) resultDynamic.add(employees[i]);
+        }
+
+        // 固定配列へ変換
+        String[] results = new String[resultDynamic.size()];
+
+        for (int i = 0; i < resultDynamic.size(); i++){
+            results[i] = resultDynamic.get(i);
+        }
+
+        return results;
+    }
+
+    public static void printArray(String[] array) {
+        System.out.print("[");
+        for (int i = 0; i < array.length; i++){
+            System.out.print(array[i] + " ");
+        }
+        System.out.println("]");
+    }
+
+    public static void main(String[] args){
+
+        printArray(fireEmployees(new String[]{"Steve","David","Mike","Donald","Lake","Julian"},new String[]{"Donald","Lake"}));
+        printArray(fireEmployees(new String[]{"Donald","Lake"},new String[]{"Donald","Lake"}));
+        printArray(fireEmployees(new String[]{"Steve","David","Mike","Donald","Lake","Julian"},new String[]{}));
+        printArray(fireEmployees(new String[]{"Mike","Steve","David","Mike","Donald","Lake","Julian"},new String[]{"Mike"}));
+    }
+}
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+class Solution{
+    public static String[] fireEmployees(String[] employees,String[] unemployed){
+        //ここから書きましょう
+        int[] number = new int[unemployed.length];
+
+        for(int i = 0; i < employees.length; i++){
+            for(int j = 0; j < unemployed.length; j++){
+                if(employees[i].equals(unemployed[j])) number[j] = i;
+            }
+        }
+
+        // 配列をリストに変換
+        List<String> list = new ArrayList<String>(Arrays.asList(employees));
+
+        for(int l = 0 ; l < number.length; l++){
+            list.remove(list.indexOf(employees[number[l]]));
+            if(list.indexOf(employees[number[l]]) >= 0){
+                list.remove(list.indexOf(employees[number[l]]));
+            }
+        }
+ 
+        // 配列の要素をすべて出力
+        String[] newEmployees = (String[]) list.toArray(new String[list.size()]);
+
+        return newEmployees;
+
+    }
+}
