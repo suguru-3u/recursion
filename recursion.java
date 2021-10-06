@@ -3165,3 +3165,33 @@ class Solution{
 
     }
 }
+
+// 配列のシャッフル
+// easy
+// mith は間違い探しゲームに参加しました。
+// 異なる数字が並べられているボード arr と同じ数字がシャッフルされたボード shuffledArr が与えられるので、
+// shuffledArr に対して arr がどこのインデックスへ移動したかを返す、shuffledPositions という関数を定義してください。
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.ArrayList;
+
+class Solution{
+    public static int[] shuffledPositions(int[] arr,int[] shuffledArr){
+        //ここから書きましょう
+
+        HashMap<Integer, Integer> hashmap = new HashMap<Integer, Integer>();
+        int[] result = new int[arr.length];
+
+        for (int i = 0; i < shuffledArr.length; i++){
+            hashmap.put(shuffledArr[i],i);
+        }
+
+        // 連想配列にない要素を追加
+        for (int i = 0; i < arr.length; i++){
+           result[i] = hashmap.get(arr[i]);
+        }
+
+        return result;
+    }
+}
