@@ -3130,3 +3130,38 @@ class Solution{
 
     }
 }
+
+
+// 素数の個数
+// easy
+// Eric はとある組織に囚われの身となっており、ある条件を満たせば自由になれる約束をしていました。
+// それは、整数 n が与えられたときに n 未満に何個素数があるか正確に答えることでした。
+// 整数 n が与えられるので、n 未満に含まれる素数の個数を返す、primesUpToNCount という関数を定義してください。
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.ArrayList;
+
+class Solution{
+    public static int primesUpToNCount(int n){
+        //ここから書きましょう
+        if(n <= 2)return 0;
+        if(n == 3)return 1;
+
+        ArrayList<Integer> resultDynamic = new ArrayList<Integer>();
+        resultDynamic.add(0);
+        resultDynamic.add(1);
+
+        for(int i = 2 ; i < n ; i++){
+            for(int j = 1; j < i ;j++){
+                if(i % j == 0 && j != 1){
+                    resultDynamic.add(i);
+                    break;
+                }
+            }
+        }
+
+        return n - resultDynamic.size();
+
+    }
+}
