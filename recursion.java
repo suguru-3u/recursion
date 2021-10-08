@@ -3227,3 +3227,28 @@ class Solution{
         return (int)((count / total) * 100);
     }
 }
+
+
+// TODO: リストと値を受け取り、リスト内にある値のインデックスを返す、searchListという関数をハッシュマップを使って作成してください。値がリスト内に複数ある場合は先に出てきたインデックスを返してください。もし発見されない場合は-1を返してください。
+import java.util.HashMap;
+
+class Main{
+
+    public static int searchList(int[] list, int value){
+        HashMap<Integer,Integer> hashMap = new HashMap<Integer,Integer>();
+
+        for(int i = 0; i < list.length ; i++){
+            hashMap.put(list[i],i);
+        }
+
+        return (hashMap.get(value) != null) ? hashMap.get(value) : -1 ;
+    }
+
+    public static void main(String[] args){
+        // 固定配列を検索します。
+        int[] sampleList = {3,10,23,3,4,50,2,3,4,18,6,1,-2};
+        System.out.println(searchList(sampleList, 23));
+        System.out.println(searchList(sampleList, -2));
+    }
+
+}
