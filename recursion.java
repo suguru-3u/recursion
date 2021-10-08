@@ -3252,3 +3252,159 @@ class Main{
     }
 
 }
+
+// Javaで開発しましょう。
+import java.util.ArrayList;
+
+class Main{
+    public static void main(String[] args){
+        int[] targetList1 = {1,2,3,4,5,6};
+        int[] searchList1 = {1,4,4,5,8,9,10,11};
+        System.out.println(listIntersection(targetList1, searchList1));
+
+        int[] targetList2 = {3,4,5,10,2,20,4,5};
+        int[] searchList2 = {4,20,22,2,2,2,10,1,4};
+        System.out.println(listIntersection(targetList2, searchList2));
+
+        int[] targetList3 = {2,3,4,54,10,5,9,11};
+        int[] searchList3 = {3,10,23,10,0,5,9,2};
+        System.out.println(listIntersection(targetList3, searchList3));
+    }
+
+    public static boolean linearSearchExists(int[] haystack, int needle){
+        for(int i = 0; i < haystack.length; i++){
+            if(haystack[i] == needle) return true;
+        }
+        return false;
+    }
+
+    public static ArrayList<Integer> listIntersection(int[] targetList, int[] searchList){
+        ArrayList<Integer> results = new ArrayList<>();
+        for(int i = 0; i < searchList.length; i++){
+            if(linearSearchExists(targetList, searchList[i])) results.add(searchList[i]);
+        }
+
+        return results;
+    }
+}
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+class Main{
+    public static void main(String[] args){
+        int[] targetList1 = {1,2,3,4,5,6};
+        int[] searchList1 = {1,4,4,5,8,9,10,11};
+        System.out.println(listIntersection(targetList1, searchList1));
+
+        int[] targetList2 = {3,4,5,10,2,20,4,5};
+        int[] searchList2 = {4,20,22,2,2,2,10,1,4};
+        System.out.println(listIntersection(targetList2, searchList2));
+
+        int[] targetList3 = {2,3,4,54,10,5,9,11};
+        int[] searchList3 = {3,10,23,10,0,5,9,2};
+        System.out.println(listIntersection(targetList3, searchList3));
+    }
+
+    public static ArrayList<Integer> listIntersection(int[] targetList, int[] searchList){
+        HashMap<Integer, Integer> hashmap = new HashMap<>();
+        ArrayList<Integer> results = new ArrayList<>();
+        for(int i = 0; i < targetList.length; i++){
+            hashmap.put(targetList[i], targetList[i]);
+        }
+        for(int i = 0; i < searchList.length; i++){
+            if(hashmap.get(searchList[i]) != null) results.add(searchList[i]);
+        }
+
+        return results;
+    }
+}
+
+
+import java.util.HashMap;
+
+class Main{
+    
+    public static void main(String[] args){
+        int[] arr1 = {1,1,1,1,1,2,2,2,2,2,2,3,3,3,4,5,6,6,6,6,7,8,8,8,9,9,9};
+        printDuplicates(arr1);
+        int[] arr2 = {7,7,6,6,3,5,3,9,2,5,5,4,6,4,1,4,1,7,2};
+        printDuplicates(arr2);
+    }
+
+    public static void printDuplicates(int[] inputList){
+        HashMap<Integer, Integer> hashmap = new HashMap<>();
+
+        for(int i = 0; i < inputList.length; i++){
+            // inputList[i]がキャッシュされてない場合は、値を1としてkeyと一緒に保存します。
+            // これは、要素が1つであることを意味します。
+            if(hashmap.get(inputList[i]) == null){
+                hashmap.put(inputList[i], 1);
+            }else{
+                // キャッシュされている場合は、値を1プラスします。
+                // これは他に同じ要素が存在することを意味します。
+                hashmap.replace(inputList[i], hashmap.get(inputList[i]) + 1);
+            }
+        }
+
+        // keySet()メソッドを使ってすべてのキーを出力します。
+        // また、values()メソッドを使ってハッシュマップの全ての値を出力することもできます。
+        // キャッシュされた順に出力されると期待してはいけません。ハッシュマップキーは順序のないリストであり、何も保証されません。
+        System.out.println(hashmap.keySet());
+
+        // キャッシュされた情報を出力します。
+        for(Integer key : hashmap.keySet()){
+            System.out.println(String.valueOf(key) + " has " + String.valueOf(hashmap.get(key)) + " duplicates.");
+        }
+    }
+}
+
+
+// 例題1
+// アルファベットで構成される文字列が与えられるのでそれがパングラムかどうか判定する、isPangramという関数を作成してください。パングラムとは、a-zまでの全てのアルファベットを含んだ文字列のことを指します。
+
+// "we promptly judged antique ivory buckles for the next prize" -> true
+// "sheep for a unique zebra when quick red vixens jump over the yacht" -> false
+// "a quick brown fox jumps over the lazy dog" -> true
+
+public static boolean isPangram(String string) {
+        HashMap<Character,Integer> hashmap = new HashMap<>();
+        String lowerString = string.replace(" ", "").toLowerCase();
+
+        for (int i = 0; i < lowerString.length(); i++) {
+            if (hashmap.get(lowerString.charAt(i)) == null) hashmap.put(lowerString.charAt(i),1);
+            else hashmap.replace(lowerString.charAt(i), hashmap.get(lowerString.charAt(i)) + 1);
+        }
+
+        return hashmap.keySet().size() == 26 ? true : false;
+    }
+}
+
+
+
+// 例題2
+// 文字列stringが与えられるので、全ての文字が同じ数だけ含まれているかどうか判定するcharAppearXTimesという関数を作成してください。
+
+// "babacddc" -> true
+// "aaabbbcccddd" -> true
+// "aaabbccdd" -> false
+// "zadbchvwxbwhdxvcza" -> true
+// "zadbchvwxbwhdxvczb" -> false
+
+public static boolean charAppearXTimes(String string) {
+        HashMap<Character,Integer> hashmap = new HashMap<>();
+        String lowerString = string.replace(" ", "").toLowerCase();
+
+        for (int i = 0; i < lowerString.length(); i++) {
+            if (hashmap.get(lowerString.charAt(i)) == null) hashmap.put(lowerString.charAt(i),1);
+            else hashmap.replace(lowerString.charAt(i), hashmap.get(lowerString.charAt(i)) + 1);
+        }
+
+        int charCount = hashmap.get(lowerString.charAt(0));
+        for(Integer value : hashmap.values()){
+            if (charCount != value) return false;
+        }
+        return true;
+    }
+}
