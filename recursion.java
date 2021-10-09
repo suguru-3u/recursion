@@ -3264,5 +3264,166 @@ class Main{
 
 }
 
+// 配列の重複（区別あり）
+// easy
+// 整数で構成される配列 num1 と num2 が与えられるので、
+// 両方の配列に表示されている要素を小さい順で配列で返す、intersectionOfArraysRepeats という関数を作成してください。
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collections;
+
+class Solution{
+    public static int[] intersectionOfArraysRepeats(int[] intList1,int[] intList2){
+        //ここから書きましょう
+        Map<Integer,Integer> number = new HashMap<>();
+        List<Integer> match = new ArrayList<Integer>();
+
+        for(int i = 0; i < intList1.length; i++){
+            if(number.get(intList1[i]) == null)number.put(intList1[i],1);
+            else number.replace(intList1[i],number.get(intList1[i]) + 1);
+        }
+
+        for(int i = 0; i < intList2.length; i++){
+            if(number.get(intList2[i]) != null){
+                if(number.get(intList2[i]) != 0){
+                    match.add(intList2[i]);
+                    number.replace(intList2[i],number.get(intList2[i]) -1);
+                }
+            }      
+        }
+
+        Collections.sort(match);
+        int[] intersection = new int[match.size()];
+
+        for(int i = 0; i < match.size(); i++){
+            intersection[i] = match.get(i);
+        }
+
+        return intersection;
 
 
+    }
+}
+
+
+
+
+
+import java.util.HashMap;
+
+class Solution{
+    public static boolean hasSameType(String user1,String user2){
+        //ここから書きましょう
+        HashMap<Character,Character> macth = new HashMap<Character,Character>();
+
+        if(user1.length() != user2.length())return false;
+
+        for(int i = 0; i < user1.length() ;i++){
+            macth.put(user1.charAt(i),user2.charAt(i));
+        }
+
+        for(int i = 0; i < user2.length() ; i++){
+            if(macth.get(user1.charAt(i)) != user2.charAt(i) )return false;
+        }
+
+        char d = '#';
+        for(char str : macth.values()) {
+            char e = str;
+			if(d == e)return false;
+            d = e;
+		}
+
+        return true;
+    }
+}
+
+  // 文字列の長さが違う場合を最初に除きます。
+  if (user1.length() != user2.length()) return false;
+  // ハッシュマップを作成します
+  HashMap<Character, Character> hashmap = new HashMap<>();
+
+  String res = "";
+
+  for (int i = 0; i < user1.length(); i++) {
+
+      // user1,user2それぞれのi番目の文字が、どちらもハッシュマップにまだなかったら保存します。        
+      if (!hashmap.containsKey(user1.charAt(i)) && !hashmap.containsValue(user2.charAt(i))) hashmap.put(user1.charAt(i), user2.charAt(i));
+
+      // ハッシュマップに存在したらresに対応する値を追加します。
+      if (hashmap.containsKey(user1.charAt(i))) res += hashmap.get(user1.charAt(i)); 
+  }
+  // できたresとuser2が同じ文字列ならtrueです。
+  return res.equals(user2);
+
+  import java.util.Arrays;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+class Solution{
+    public static int[] findPairs(int[] numbers){
+        //ここから書きましょう
+
+        HashMap<Integer,Integer> match = new HashMap<Integer,Integer>();
+        List<Integer> find = new ArrayList<>();
+
+        for(int i = 0; i < numbers.length; i++){
+            if(match.get(numbers[i]) == null)match.put(numbers[i],1);
+            else match.put(numbers[i],numbers[i] + 1);
+        }
+
+        for(Map.Entry<Integer,Integer> number: match.entrySet()){
+            if(number.getValue() == 2)find.add(number.getKey());
+        }
+
+        int[] count = new int[find.size()];
+        for(int i = 0; i < find.size(); i++){
+            count[i] = find.get(i);
+        } 
+
+        return count;
+    }
+}
+
+
+// 復習のお知らせ機能
+// medium
+// Zollar は算数の計算練習ができるサイトを立ち上げました。
+// そのサイトは a 問題から z 問題まで 26 個の問題があります。
+// このサイトには復習機能がついており、1 回しか解いていない問題をトップページの一番上に表示するようにしました。
+// あるユーザーが解いたことのある問題一覧を表す小文字によって構成される文字列 s が与えられるので、その中で 1 番最初に出てくる 1 回しか解いたことがない問題をインデックスで返す、
+// firstNonRepeating という関数を定義してください。当てはまる文字がない場合は -1 を返してください。
+
+// 関数の入出力例
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+class Solution{
+    public static int firstNonRepeating(String s){
+        //ここから書きましょう
+        int ans = -1;
+
+        HashMap<Character,Integer> text = new HashMap<Character,Integer>();
+        for(int i = 0; i < s.length(); i++){
+            text.put(s.charAt(i), text.getOrDefault(s.charAt(i), 0) + 1);
+        }
+
+        for(int i = 0; i < s.length() ; i++){
+            if(text.get(s.charAt(i)) == 1){
+                ans = i;
+                return ans;
+            }
+        }
+
+        return ans;
+    }
+}
