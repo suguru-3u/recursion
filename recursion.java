@@ -3049,3 +3049,152 @@ class Main{
 
     }
 }
+
+
+class Main{
+
+    public static int fibonacciNumberTailHelper(int fn1, int fn2, int n){
+        if(n < 1) {
+            return fn1;
+        }
+
+        return fibonacciNumberTailHelper(fn2, fn1+fn2, n-1);
+    }
+
+    public static int fibonacciNumberTail(int n){
+        // この関数が1つのパラメータを受け取るように、ヘルパー関数を使います。
+        // そうすることによって、関数の再利用をより簡単に行うことができます。
+        // 0と1からスタートします。
+        return fibonacciNumberTailHelper(0,1,n);
+    }
+
+    public static void main(String[] args){
+        System.out.println(fibonacciNumberTail(20));
+    }
+}
+
+
+class Main{
+    // メモ化は、ツリー構造が上から下へと続くアルゴリズムでのキャッシングです。
+    // フィボナッチのツリーを見てみると、nから始まり、n-1、n-2、n-3と下に向かって計算していきます。
+
+    //グローバル変数にメモ用の配列を宣言
+    public static long[] cache;
+
+    public static long memoizationFib(int totalFibNumbers){
+      //これはキャッシュであり，すでに計算したフィボナッチ数をすべて保存します。全てを0に設定します。
+      cache = new long[totalFibNumbers+1];
+
+      return memoizationFibHelper(totalFibNumbers);
+    }
+
+    // キャッシュを更新するには、このヘルパー関数を使用します。
+    public static long memoizationFibHelper(int n){
+        // キャッシュされていないフィボナッチ数を処理するだけです。
+        // フィボナッチのnを再帰的に計算し，キャッシュに追加します。
+      if (cache[n] == 0){
+        if(n == 0) cache[n] = 0;
+        else if(n == 1) cache[n] = 1;
+        else cache[n] = memoizationFibHelper(n - 1) + memoizationFibHelper(n - 2);
+      }
+      // フィボナッチはすでに計算されているのでただ返すだけで問題ありません。
+      return cache[n];
+    }
+
+    public static void main(String[] args){
+        System.out.println(memoizationFib(50));
+    }
+}
+
+
+// パングラム
+// easy
+// Faraone は宿題で英文を作るように頼まれました。
+// ただし、a - z までの全てのアルファベットを含まなければいけない条件がついています。
+// 英文 string が与えられるので、a - z までの全ての文字を含んでいるか判定する、isPangram という関数を作成してください。
+
+class Solution{
+    public static boolean isPangram(String string){
+        //ここから書きましょう
+        String searhContent = "abcdefghijklnmopqrstuvwxyz";
+        boolean[] ceahk = new boolean[26]; 
+
+        for(int i = 0 ; i < string.length(); i++){
+            int stringNumber =  searhContent.indexOf(string.toLowerCase().charAt(i));
+            if(stringNumber >= 0)ceahk[stringNumber] = true;
+        }
+
+        for(int i = 0; i < ceahk.length; i++)if(!ceahk[i])return false;
+        
+        return true;
+    }
+}
+
+
+import java.util.Arrays;
+
+class Main{
+    public static boolean isPangram(String string){
+        // キャッシュを作成
+        int[] cache = new int[26];
+        Arrays.fill(cache, 0);
+
+        // 1文字ずつ取得し、文字コードを使ってキャッシュを更新します
+        for (int i = 0; i < string.length(); i++){
+            int ascii = (int)string.toLowerCase().charAt(i);
+            if (ascii >= 97 && ascii <= 122) cache[ascii - 97] = 1;
+        }
+
+        // 0が一つもなかったら全ての文字が存在する事になります。
+        for (int i = 0; i < cache.length; i++) if (cache[i] == 0) return false;
+        return true;
+    }
+
+    public static void main(String[] args){
+
+        System.out.println(isPangram("we promptly judged antique ivory buckles for the next prize"));
+        System.out.println(isPangram("a quick brown fox jumps over the lazy dog"));
+        System.out.println(isPangram("sphinx of black quartz judge my vow"));
+        System.out.println(isPangram("sheep for a unique zebra when quick red vixens jump over the yacht"));
+        System.out.println(isPangram("the Japanese yen for commerce is still well-known"));
+    }
+}
+
+
+// ショッピングリスト
+// easy
+// Whalum は兄が買うものはなんでも欲しがる性格です。
+// 兄弟で一緒にネットショッピングをするときも、兄が買うものと同じものを買おうとしていました。
+// 兄の注文リスト listA と Whalum の注文リスト listB が与えられるので、兄が買うもので Whalum の注文リストに入ってないものを返す、
+// missingItems という関数を作成してください。もし、被りが一切存在しない時は、兄の注文リストをそのまま返してください。
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution{
+    public static int[] missingItems(int[] listA,int[] listB){
+        //ここから書きましょう
+        Map<Integer,Integer> cars = new HashMap<>();
+        List<Integer> car = new ArrayList<Integer>();
+
+        for(int i = 0; i < listB.length ; i++){
+            cars.put(listB[i],listB[i]);
+        }
+
+        for(int i = 0; i < listA.length; i++){
+            if(cars.get(listA[i]) == null)car.add(listA[i]);
+        }
+
+        int[] newCar = new int[car.size()];
+        for(int i = 0 ; i < car.size() ; i++){
+            newCar[i] = car.get(i);
+        }
+
+        return newCar;
+
+       
+    }
+}
