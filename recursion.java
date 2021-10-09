@@ -3259,7 +3259,9 @@ class Main{
         System.out.println(isPangram("sphinx of black quartz judge my vow"));
         System.out.println(isPangram("sheep for a unique zebra when quick red vixens jump over the yacht"));
         System.out.println(isPangram("the Japanese yen for commerce is still well-known"));
+        System.out.println(isPangram("the Japanese yen for commerce is still well-known"));
     }
+
 }
 
 
