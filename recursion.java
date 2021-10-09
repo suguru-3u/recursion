@@ -3050,83 +3050,185 @@ class Main{
     }
 }
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 class Main{
+    public static String[] fireEmployees(String[] employees,String[] unemployed){
+        HashMap<String, String> hashmap = new HashMap<String, String>();
+        ArrayList<String> resultDynamic = new ArrayList<String>();
 
-    public static int fibonacciNumberTailHelper(int fn1, int fn2, int n){
-        if(n < 1) {
-            return fn1;
+        // 解雇リストにある要素を連想配列に追加
+        for (int i = 0; i < unemployed.length; i++){
+            hashmap.put(unemployed[i], unemployed[i]);
         }
 
-        return fibonacciNumberTailHelper(fn2, fn1+fn2, n-1);
+        // 連想配列にない要素を追加
+        for (int i = 0; i < employees.length; i++){
+            if(!hashmap.containsKey(employees[i])) resultDynamic.add(employees[i]);
+        }
+
+        // 固定配列へ変換
+        String[] results = new String[resultDynamic.size()];
+
+        for (int i = 0; i < resultDynamic.size(); i++){
+            results[i] = resultDynamic.get(i);
+        }
+
+        return results;
     }
 
-    public static int fibonacciNumberTail(int n){
-        // この関数が1つのパラメータを受け取るように、ヘルパー関数を使います。
-        // そうすることによって、関数の再利用をより簡単に行うことができます。
-        // 0と1からスタートします。
-        return fibonacciNumberTailHelper(0,1,n);
+    public static void printArray(String[] array) {
+        System.out.print("[");
+        for (int i = 0; i < array.length; i++){
+            System.out.print(array[i] + " ");
+        }
+        System.out.println("]");
     }
 
     public static void main(String[] args){
-        System.out.println(fibonacciNumberTail(20));
+
+        printArray(fireEmployees(new String[]{"Steve","David","Mike","Donald","Lake","Julian"},new String[]{"Donald","Lake"}));
+        printArray(fireEmployees(new String[]{"Donald","Lake"},new String[]{"Donald","Lake"}));
+        printArray(fireEmployees(new String[]{"Steve","David","Mike","Donald","Lake","Julian"},new String[]{}));
+        printArray(fireEmployees(new String[]{"Mike","Steve","David","Mike","Donald","Lake","Julian"},new String[]{"Mike"}));
+>>>>>>> 355c5bededbbd52f8aef88b35faf9a24d4f644c9
     }
 }
 
 
-class Main{
-    // メモ化は、ツリー構造が上から下へと続くアルゴリズムでのキャッシングです。
-    // フィボナッチのツリーを見てみると、nから始まり、n-1、n-2、n-3と下に向かって計算していきます。
 
-    //グローバル変数にメモ用の配列を宣言
-    public static long[] cache;
-
-    public static long memoizationFib(int totalFibNumbers){
-      //これはキャッシュであり，すでに計算したフィボナッチ数をすべて保存します。全てを0に設定します。
-      cache = new long[totalFibNumbers+1];
-
-      return memoizationFibHelper(totalFibNumbers);
-    }
-
-    // キャッシュを更新するには、このヘルパー関数を使用します。
-    public static long memoizationFibHelper(int n){
-        // キャッシュされていないフィボナッチ数を処理するだけです。
-        // フィボナッチのnを再帰的に計算し，キャッシュに追加します。
-      if (cache[n] == 0){
-        if(n == 0) cache[n] = 0;
-        else if(n == 1) cache[n] = 1;
-        else cache[n] = memoizationFibHelper(n - 1) + memoizationFibHelper(n - 2);
-      }
-      // フィボナッチはすでに計算されているのでただ返すだけで問題ありません。
-      return cache[n];
-    }
-
-    public static void main(String[] args){
-        System.out.println(memoizationFib(50));
-    }
-}
-
-
-// パングラム
-// easy
-// Faraone は宿題で英文を作るように頼まれました。
-// ただし、a - z までの全てのアルファベットを含まなければいけない条件がついています。
-// 英文 string が与えられるので、a - z までの全ての文字を含んでいるか判定する、isPangram という関数を作成してください。
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 class Solution{
-    public static boolean isPangram(String string){
+    public static String[] fireEmployees(String[] employees,String[] unemployed){
         //ここから書きましょう
-        String searhContent = "abcdefghijklnmopqrstuvwxyz";
-        boolean[] ceahk = new boolean[26]; 
+        int[] number = new int[unemployed.length];
 
-        for(int i = 0 ; i < string.length(); i++){
-            int stringNumber =  searhContent.indexOf(string.toLowerCase().charAt(i));
-            if(stringNumber >= 0)ceahk[stringNumber] = true;
+        for(int i = 0; i < employees.length; i++){
+            for(int j = 0; j < unemployed.length; j++){
+                if(employees[i].equals(unemployed[j])) number[j] = i;
+            }
         }
 
-        for(int i = 0; i < ceahk.length; i++)if(!ceahk[i])return false;
-        
-        return true;
+        // 配列をリストに変換
+        List<String> list = new ArrayList<String>(Arrays.asList(employees));
+
+        for(int l = 0 ; l < number.length; l++){
+            list.remove(list.indexOf(employees[number[l]]));
+            if(list.indexOf(employees[number[l]]) >= 0){
+                list.remove(list.indexOf(employees[number[l]]));
+            }
+        }
+ 
+        // 配列の要素をすべて出力
+        String[] newEmployees = (String[]) list.toArray(new String[list.size()]);
+
+        return newEmployees;
+
+    }
+}
+
+
+// 素数の個数
+// easy
+// Eric はとある組織に囚われの身となっており、ある条件を満たせば自由になれる約束をしていました。
+// それは、整数 n が与えられたときに n 未満に何個素数があるか正確に答えることでした。
+// 整数 n が与えられるので、n 未満に含まれる素数の個数を返す、primesUpToNCount という関数を定義してください。
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.ArrayList;
+
+class Solution{
+    public static int primesUpToNCount(int n){
+        //ここから書きましょう
+        if(n <= 2)return 0;
+        if(n == 3)return 1;
+
+        ArrayList<Integer> resultDynamic = new ArrayList<Integer>();
+        resultDynamic.add(0);
+        resultDynamic.add(1);
+
+        for(int i = 2 ; i < n ; i++){
+            for(int j = 1; j < i ;j++){
+                if(i % j == 0 && j != 1){
+                    resultDynamic.add(i);
+                    break;
+                }
+            }
+        }
+
+        return n - resultDynamic.size();
+
+    }
+}
+
+// 配列のシャッフル
+// easy
+// mith は間違い探しゲームに参加しました。
+// 異なる数字が並べられているボード arr と同じ数字がシャッフルされたボード shuffledArr が与えられるので、
+// shuffledArr に対して arr がどこのインデックスへ移動したかを返す、shuffledPositions という関数を定義してください。
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.ArrayList;
+
+class Solution{
+    public static int[] shuffledPositions(int[] arr,int[] shuffledArr){
+        //ここから書きましょう
+
+        HashMap<Integer, Integer> hashmap = new HashMap<Integer, Integer>();
+        int[] result = new int[arr.length];
+
+        for (int i = 0; i < shuffledArr.length; i++){
+            hashmap.put(shuffledArr[i],i);
+        }
+
+        // 連想配列にない要素を追加
+        for (int i = 0; i < arr.length; i++){
+           result[i] = hashmap.get(arr[i]);
+        }
+
+        return result;
+>>>>>>> 355c5bededbbd52f8aef88b35faf9a24d4f644c9
+    }
+}
+
+
+// シャッフルの割合
+// easy
+// Beck は倉庫の整理係で、倉庫内にある荷物には全て商品番号が振られています。
+// ある日、地震が起きて棚にある荷物が全て落ちてしまい、Beck は急いで棚に戻したら荷物の順番がバラバラになりました。
+// 地震前の荷物 arr と地震後の荷物 shuffledArr が与えられるので、地震が起きた後に何%の荷物が移動したかを返す、shuffleSuccessRate という関数を定義してください。
+// 小数点以下に対しては切り捨ての処理を行ってください。また商品番号は一意であるとします。
+
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution{
+    public static int shuffleSuccessRate(int[] arr,int[] shuffledArr){
+        //ここから書きましょう
+
+        double total = arr.length;
+        double count = 0;
+
+        Map<Integer,Integer> a = new HashMap<Integer,Integer>();
+
+        for(int i = 0; i < shuffledArr.length; i++){
+            a.put(shuffledArr[i],i);
+        }
+
+        for(int i = 0 ; i < arr.length ; i++){
+            if(i != a.get(arr[i]))count += 1;
+        }
+
+        return (int)((count / total) * 100);
+>>>>>>> 355c5bededbbd52f8aef88b35faf9a24d4f644c9
     }
 }
 
@@ -3161,40 +3263,4 @@ class Main{
 }
 
 
-// ショッピングリスト
-// easy
-// Whalum は兄が買うものはなんでも欲しがる性格です。
-// 兄弟で一緒にネットショッピングをするときも、兄が買うものと同じものを買おうとしていました。
-// 兄の注文リスト listA と Whalum の注文リスト listB が与えられるので、兄が買うもので Whalum の注文リストに入ってないものを返す、
-// missingItems という関数を作成してください。もし、被りが一切存在しない時は、兄の注文リストをそのまま返してください。
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.List;
-
-class Solution{
-    public static int[] missingItems(int[] listA,int[] listB){
-        //ここから書きましょう
-        Map<Integer,Integer> cars = new HashMap<>();
-        List<Integer> car = new ArrayList<Integer>();
-
-        for(int i = 0; i < listB.length ; i++){
-            cars.put(listB[i],listB[i]);
-        }
-
-        for(int i = 0; i < listA.length; i++){
-            if(cars.get(listA[i]) == null)car.add(listA[i]);
-        }
-
-        int[] newCar = new int[car.size()];
-        for(int i = 0 ; i < car.size() ; i++){
-            newCar[i] = car.get(i);
-        }
-
-        return newCar;
-
-       
-    }
-}
