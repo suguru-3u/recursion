@@ -3428,10 +3428,11 @@ class Solution{
     }
 }
 
-// プレイヤーの手札を受け取って、スコアを計算するscore21Individualメソッドを作成しましょう。ブラックジャックでは手札の合計値が21になると最高得点になり、21を超えてしまうと必ず負けてしまいます。
+// 卓の種類によって、勝利条件を変更するcheckWinnerというメソッドを作成してください。
 
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 class Card{
     public String suit;
@@ -3451,20 +3452,34 @@ class Card{
 }
 
 class Deck{
+ 
     public ArrayList<Card> deck;
     
-    public Deck(){
-        this.deck = this.generateDeck();
+    public Deck(Table table){
+        this.deck = this.generateDeck(table);
     }
-    
-    public static ArrayList<Card> generateDeck(){
+
+    public static ArrayList<Card> generateDeck(Table table){
         ArrayList<Card> newDeck = new ArrayList<>();
         String[] suits = new String[]{"♣", "♦", "♥", "♠"};
         String[] values = new String[]{"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
+        HashMap<String, Integer> blackJack = new HashMap<>(){
+            {
+                put("A",1);
+                put("J",10);
+                put("Q",10);
+                put("K",10);
+
+            }
+        };
         for(int i = 0; i < suits.length; i++){
             for(int j = 0; j < values.length; j++){
-                newDeck.add(new Card(suits[i], values[j], j + 1));
+                if(table.gameMode == "21"){
+                    newDeck.add(new Card(suits[i], values[j], blackJack.get(values[j]) == null ? j + 1 : blackJack.get(values[j])));
+                }else{
+                    newDeck.add(new Card(suits[i], values[j], j + 1));
+                }                     
             }
         }
         return newDeck;
@@ -3503,15 +3518,15 @@ class Table{
 
 class Dealer{
     public static ArrayList<ArrayList<Card>> startGame(Table table) {
-        
-        Deck deck = new Deck();
-        deck.shuffleDeck();
 
+        Deck deck = new Deck(table);
+        deck.shuffleDeck();
         ArrayList<ArrayList<Card>> playerCards = new ArrayList<>();
- 
-        for (int i = 0; i < table.amountOfPlayers; i++) {      
-            ArrayList<Card> playerHand = new ArrayList<Card>(Dealer.initialCards(table.gameMode));     
-            for (int j = 0; j < Dealer.initialCards(table.gameMode); j++) {
+        
+        for (int i = 0; i < table.amountOfPlayers; i++) { 
+     
+            ArrayList<Card> playerHand = new ArrayList<Card>(initialCards(table.gameMode));     
+            for (int j = 0; j < initialCards(table.gameMode); j++) {
                 Card card1 = deck.draw();
                 playerHand.add(card1);
             }
@@ -3520,6 +3535,7 @@ class Dealer{
         
         return playerCards;
     }
+
 
     public static int initialCards(String gameMode) {
         if (gameMode == "poker") return 5;
@@ -3539,15 +3555,53 @@ class Dealer{
         }            
     }
 
-    // 各プレーヤーの手札を受け取って、合計値を計算するscore21Individualメソッドを作成してください。
-    // 値が21を超えたら0としてください。
-    public static int score21Individual(ArrayList<Card> playerCards){
+    public static int score21Individual(ArrayList<Card> cards) {
         int value = 0;
-        for(int i = 0 ; i < playerCards.size() ; i++){
-            value += playerCards.get(i).intValue;
+        for (int i = 0; i < cards.size(); i++) {
+            value += cards.get(i).intValue;
         }
-        if(value > 21)return value = 0;
+        if (value > 21) value = 0;
         return value;
+    }
+
+    public static String winnerOf21(ArrayList<ArrayList<Card>> playerCards) {
+        int[] points = new int[playerCards.size()];
+        HashMap<Integer, Integer> cache = new HashMap<>();
+        for (int i = 0; i < playerCards.size(); i++) {
+            int point = score21Individual(playerCards.get(i));
+            points[i] = point;
+
+            if(cache.get(point) == null) cache.put(point,1);
+            else cache.replace(point, cache.get(point)+1);
+        }
+
+        int winnerIndex = HelperFunctions.maxInArrayIndex(points);
+        if (cache.get(points[winnerIndex]) > 1) return "It is a draw ";
+        else if (cache.get(points[winnerIndex]) >= 0) return "player " + (winnerIndex + 1) + " is the winner";
+        else return "No winners..";
+
+    } 
+
+    // 卓のゲームの種類によって勝利条件を変更するcheckWinnerというメソッドを作成します。
+    public static String checkWinner(ArrayList<ArrayList<Card>> playerCards, Table table) {
+        if (table.gameMode == "21") return Dealer.winnerOf21(playerCards);
+        else return "no game";
+    }
+}
+
+class HelperFunctions {
+
+    public static int maxInArrayIndex(int[] intArr) {
+        int maxIndex = 0;
+        int maxValue = intArr[0];
+
+        for (int i = 1; i < intArr.length; i++) {
+            if (intArr[i] > maxValue) {
+                maxValue = intArr[i];
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
     }
 }
 
@@ -3555,28 +3609,92 @@ class Main{
         
     public static void main(String[] args){
 
-        // PlayerAの手札
-        ArrayList<Card> playerA = new ArrayList<>(2);
-        
-        Card card1 = new Card("♦︎","A", 1);
-        Card card2 = new Card("♦︎","J", 11);
+        Table table = new Table(3,"poker");
+        ArrayList<ArrayList<Card>> game = Dealer.startGame(table);
+        Dealer.printTableInformation(game, table);
 
-        playerA.add(card1);
-        playerA.add(card2);
+        // コンソールにtableのcheckWinnerを出力してください。
+        System.out.println(Dealer.checkWinner(game,table));
 
-        // PlayerBの手札
-        ArrayList<Card> playerB = new ArrayList<>(2);
-        Card card3 = new Card("♦︎","9", 9);
-        Card card4 = new Card("♦︎","K", 13);
+         System.out.println("");
 
-        playerB.add(card3);
-        playerB.add(card4);
+        Table table2 = new Table(3,"21");
+        ArrayList<ArrayList<Card>> game2 = Dealer.startGame(table2);
+        Dealer.printTableInformation(game2, table2);
 
-        System.out.println(Dealer.score21Individual(playerA));
-        System.out.println(Dealer.score21Individual(playerB));
-       
-        // PlayerAとPlayerBの手札をそれぞれ計算して出力してください。
-       
+        // コンソールにtableのcheckWinnerを出力してください。
+        System.out.println(Dealer.checkWinner(game2,table2));
+
     }
 
+}
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+class Solution{
+    public static String winnerPairOfCards(String[] player1,String[] player2){
+       
+        String[] numbers1 = countHelper(player1);
+        String[] numbers2 = countHelper(player2);
+
+        Map<Integer,Integer> handsort1 =countMapHelper(numbers1);
+        Map<Integer,Integer> handsort2 =countMapHelper(numbers2);
+
+        return countCompoteHelper(handsort1,handsort2);
+    }
+
+    public static String countCompoteHelper(Map<Integer,Integer> hand1,Map<Integer,Integer> hand2){
+
+        String winner = "draw";
+        int pairOfCards = 0;
+        
+        for(int i = 1 ; i < hand1.size() +1 ; i++){
+
+            if(hand1.get(i) > hand2.get(i)){
+                if(pairOfCards < hand1.get(i)){
+                    winner = "player1";
+                    pairOfCards = hand1.get(i);
+                }
+            }
+            else if(hand1.get(i) < hand2.get(i)){
+                if(pairOfCards < hand2.get(i)){
+                    winner = "player2";
+                    pairOfCards = hand2.get(i);
+                }
+            }
+        }
+        return winner;
+    }
+
+    public static String[] countHelper(String[] player){
+        String[] numbers = new String[player.length];
+
+        for(int i = 0 ; i < player.length ; i++){
+            for(int j = 1 ; j < 2 ; j++){
+                numbers[i] = player[i].substring(j);
+            }
+        }
+        return numbers;
+    }
+
+    public static Map<Integer,Integer> countMapHelper(String[] numbers){
+
+        HashMap<String,Integer> hand = new HashMap<>();
+
+        for(int i = 0 ; i < numbers.length ; i++){
+            if(hand.get(numbers[i]) == null)hand.put(numbers[i],1);
+            else hand.put(numbers[i] , hand.get(numbers[i]) + 1);
+        }
+
+        String[] context = {"A","K","Q","J","10","9","8","7","6","5","4","3","2"}; 
+        Map<Integer,Integer> test = new TreeMap<Integer,Integer>();
+        
+        for(int i = 0 ; i < context.length ; i++){
+            test.put(i + 1, hand.get(context[i]) == null ? 0 : hand.get(context[i]));
+        }
+
+        return test;
+    }
 }
