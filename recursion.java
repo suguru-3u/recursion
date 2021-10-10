@@ -3428,68 +3428,7 @@ class Solution{
     }
 }
 
-// まずは1枚分のカードを表すクラスCardを生成しましょう。
-// 記号(♣, ♦, ♥, ♠の内1つ)・値（A,2,~,Kの内1つ）・数値（0~12の内1つ）をインスタンス化させるコンストラクタと、それらの情報を返すメソッドgetCardStringを作成してください。
-// ♥8を例にコンソールに出力してください。
-
-// ここから記述してください。
-class Card{
-
-    private String suit;
-    private String value;
-    private int invalue;
-
-    public Card(String suit,String value,int invalue){
-        this.suit = suit;
-        this.value = value;
-        this.invalue = invalue;
-    }
-
-    public String getCardString(){
-        return this.suit + this.value + "(" + this.invalue + ")";
-    }
-}
-
-class Main{
-    
-    public static void main(String[] args){
-        // 新しくカードを作成し、カード情報を返す関数を使用します
-        Card card1 = new Card("♦︎","8",8);
-        
-        //出力して確認
-        System.out.println(card1.getCardString());
-    }
-}
-
-// デッキを表すクラスDeckを生成してください。
-// Cardクラスを活用し、Deckクラスにトランプのカード全種類を生成させるgenerateDeckというメソッドを作成しましょう。
-// デッキ、デッキに含まれる特定のカードをインデックスを操作してコンソールに出力してみましょう。
-
-import java.util.Arrays;
-import java.util.ArrayList;
-
-// デッキにあるカードを全て表示するprintDeckメソッドを作成してください。
-
-// デッキをシャッフルするshuffleDeckメソッドを作成して、シャッフル前のデッキとシャッフル後のデッキをコンソールに表示してみましょう。
-import java.util.Arrays;
-import java.util.ArrayList;
-
-class Card{
-    public String suit;
-    public String value;
-    public int intValue;
-
-    public Card(String suit, String value, int intValue){
-        this.suit = suit;
-        this.value = value;
-        this.intValue = intValue;
-    }
-    
-    public String getCardString(){
-        return this.suit + this.value + "(" + this.intValue + ")";
-    }
-
-}
+// プレイヤーの手札を受け取って、スコアを計算するscore21Individualメソッドを作成しましょう。ブラックジャックでは手札の合計値が21になると最高得点になり、21を超えてしまうと必ず負けてしまいます。
 
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -3504,7 +3443,7 @@ class Card{
         this.value = value;
         this.intValue = intValue;
     }
-    
+
     public String getCardString(){
         return this.suit + this.value + "(" + this.intValue + ")";
     }
@@ -3531,9 +3470,8 @@ class Deck{
         return newDeck;
     }
 
-    // ここから記述しましょう。
     public Card draw(){
-        return this.deck.remove(this.deck.size() -1);
+        return this.deck.remove(this.deck.size()-1);
     }
 
     public void printDeck(){
@@ -3553,18 +3491,92 @@ class Deck{
     }
 }    
 
+class Table{
+    public int amountOfPlayers;
+    public String gameMode;
+
+    public Table(int amountOfPlayers, String gameMode){
+        this.amountOfPlayers = amountOfPlayers;
+        this.gameMode = gameMode;
+    }
+}
+
+class Dealer{
+    public static ArrayList<ArrayList<Card>> startGame(Table table) {
+        
+        Deck deck = new Deck();
+        deck.shuffleDeck();
+
+        ArrayList<ArrayList<Card>> playerCards = new ArrayList<>();
+ 
+        for (int i = 0; i < table.amountOfPlayers; i++) {      
+            ArrayList<Card> playerHand = new ArrayList<Card>(Dealer.initialCards(table.gameMode));     
+            for (int j = 0; j < Dealer.initialCards(table.gameMode); j++) {
+                Card card1 = deck.draw();
+                playerHand.add(card1);
+            }
+            playerCards.add(playerHand);
+        }
+        
+        return playerCards;
+    }
+
+    public static int initialCards(String gameMode) {
+        if (gameMode == "poker") return 5;
+        if (gameMode == "21") return 2;
+        else return 0;
+    }
+
+    public static void printTableInformation(ArrayList<ArrayList<Card>> playerCards, Table table) {
+        System.out.println("Amount of players: " + table.amountOfPlayers +"... Game mode: " + table.gameMode + ". At this table: ");
+        
+        for (int i = 0; i < playerCards.size(); i++) {
+            System.out.println("Player " + (i + 1) + " hand is: ");             
+            for(int j = 0; j < playerCards.get(i).size(); j++) {
+                System.out.println(playerCards.get(i).get(j).getCardString());
+            }
+            System.out.println();
+        }            
+    }
+
+    // 各プレーヤーの手札を受け取って、合計値を計算するscore21Individualメソッドを作成してください。
+    // 値が21を超えたら0としてください。
+    public static int score21Individual(ArrayList<Card> playerCards){
+        int value = 0;
+        for(int i = 0 ; i < playerCards.size() ; i++){
+            value += playerCards.get(i).intValue;
+        }
+        if(value > 21)return value = 0;
+        return value;
+    }
+}
+
 class Main{
         
     public static void main(String[] args){
 
-        Deck deck1 = new Deck();
+        // PlayerAの手札
+        ArrayList<Card> playerA = new ArrayList<>(2);
+        
+        Card card1 = new Card("♦︎","A", 1);
+        Card card2 = new Card("♦︎","J", 11);
 
-        // シャッフル後のデッキからカードを1枚ドローしてコンソールに出力してください。
-          //シャッフル
-        deck1.shuffleDeck();
+        playerA.add(card1);
+        playerA.add(card2);
 
-        //コンソールで確認
-        System.out.println(deck1.deck.get(deck1.deck.size() - 1).getCardString());
-        System.out.println(deck1.draw().getCardString()); 
+        // PlayerBの手札
+        ArrayList<Card> playerB = new ArrayList<>(2);
+        Card card3 = new Card("♦︎","9", 9);
+        Card card4 = new Card("♦︎","K", 13);
+
+        playerB.add(card3);
+        playerB.add(card4);
+
+        System.out.println(Dealer.score21Individual(playerA));
+        System.out.println(Dealer.score21Individual(playerB));
+       
+        // PlayerAとPlayerBの手札をそれぞれ計算して出力してください。
+       
     }
+
 }
