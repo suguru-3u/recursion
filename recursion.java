@@ -3427,3 +3427,115 @@ class Solution{
         return ans;
     }
 }
+
+// まずは1枚分のカードを表すクラスCardを生成しましょう。
+// 記号(♣, ♦, ♥, ♠の内1つ)・値（A,2,~,Kの内1つ）・数値（0~12の内1つ）をインスタンス化させるコンストラクタと、それらの情報を返すメソッドgetCardStringを作成してください。
+// ♥8を例にコンソールに出力してください。
+
+// ここから記述してください。
+class Card{
+
+    private String suit;
+    private String value;
+    private int invalue;
+
+    public Card(String suit,String value,int invalue){
+        this.suit = suit;
+        this.value = value;
+        this.invalue = invalue;
+    }
+
+    public String getCardString(){
+        return this.suit + this.value + "(" + this.invalue + ")";
+    }
+}
+
+class Main{
+    
+    public static void main(String[] args){
+        // 新しくカードを作成し、カード情報を返す関数を使用します
+        Card card1 = new Card("♦︎","8",8);
+        
+        //出力して確認
+        System.out.println(card1.getCardString());
+    }
+}
+
+// デッキを表すクラスDeckを生成してください。
+// Cardクラスを活用し、Deckクラスにトランプのカード全種類を生成させるgenerateDeckというメソッドを作成しましょう。
+// デッキ、デッキに含まれる特定のカードをインデックスを操作してコンソールに出力してみましょう。
+
+import java.util.Arrays;
+import java.util.ArrayList;
+
+// デッキにあるカードを全て表示するprintDeckメソッドを作成してください。
+
+import java.util.Arrays;
+import java.util.ArrayList;
+
+class Card{
+    public String suit;
+    public String value;
+    public int intValue;
+
+    public Card(String suit, String value, int intValue){
+        this.suit = suit;
+        this.value = value;
+        this.intValue = intValue;
+    }
+
+    public String getCardString(){
+        return this.suit + this.value + "(" + this.intValue + ")";
+    }
+
+}
+class Deck{
+    public ArrayList<Card> deck;
+    
+    public Deck(){
+        this.deck = this.generateDeck();
+    }
+    
+    public static ArrayList<Card> generateDeck(){
+        ArrayList<Card> newDeck = new ArrayList<>();
+        String[] suits = new String[]{"♣", "♦", "♥", "♠"};
+        String[] values = new String[]{"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+
+        for(int i = 0; i < suits.length; i++){
+            for(int j = 0;j < values.length; j++){
+                // j=0からスタートしているので、最後はj+1にします。トランプに0というカードが存在しないため。
+                newDeck.add(new Card(suits[i], values[j], j + 1));
+            }
+        }
+        return newDeck;
+    }
+
+    // ここから記述してください。
+
+    public void printDeck(){
+        for(int i = 0 ; i < this.deck.size(); i++){
+            System.out.println(this.deck.get(i).getCardString());
+        }
+    }
+
+}
+
+class Main{
+    public static void main(String[] args){
+
+        ArrayList<Integer> intArr = new ArrayList<>(Arrays.asList(0,10,20,30,40,50,60,70,80,90,100));
+        // ここから記述してください。 
+
+        for(int i = intArr.size() - 1; i >= 0 ; i--){
+
+            int j = (int)Math.floor(Math.random() * (i + 1));
+            
+            int temp = intArr.get(i);
+            intArr.set(i,j);
+            intArr.set(j,temp);
+        }
+        // ランダムに入れ替えた後の配列
+        System.out.println(intArr);
+    }
+}
+}
