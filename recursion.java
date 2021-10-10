@@ -3470,6 +3470,7 @@ import java.util.ArrayList;
 
 // デッキにあるカードを全て表示するprintDeckメソッドを作成してください。
 
+// デッキをシャッフルするshuffleDeckメソッドを作成して、シャッフル前のデッキとシャッフル後のデッキをコンソールに表示してみましょう。
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -3483,12 +3484,33 @@ class Card{
         this.value = value;
         this.intValue = intValue;
     }
-
+    
     public String getCardString(){
         return this.suit + this.value + "(" + this.intValue + ")";
     }
 
 }
+
+import java.util.Arrays;
+import java.util.ArrayList;
+
+class Card{
+    public String suit;
+    public String value;
+    public int intValue;
+
+    public Card(String suit, String value, int intValue){
+        this.suit = suit;
+        this.value = value;
+        this.intValue = intValue;
+    }
+    
+    public String getCardString(){
+        return this.suit + this.value + "(" + this.intValue + ")";
+    }
+
+}
+
 class Deck{
     public ArrayList<Card> deck;
     
@@ -3502,40 +3524,47 @@ class Deck{
         String[] values = new String[]{"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
         for(int i = 0; i < suits.length; i++){
-            for(int j = 0;j < values.length; j++){
-                // j=0からスタートしているので、最後はj+1にします。トランプに0というカードが存在しないため。
+            for(int j = 0; j < values.length; j++){
                 newDeck.add(new Card(suits[i], values[j], j + 1));
             }
         }
         return newDeck;
     }
 
-    // ここから記述してください。
+    // ここから記述しましょう。
+    public Card draw(){
+        return this.deck.remove(this.deck.size() -1);
+    }
 
     public void printDeck(){
-        for(int i = 0 ; i < this.deck.size(); i++){
+        System.out.println("Displaying cards...");
+        for (int i = 0; i < this.deck.size(); i++) {
             System.out.println(this.deck.get(i).getCardString());
         }
     }
 
-}
+    public void shuffleDeck() {
+        for(int i = this.deck.size()-1; i >= 0; i--){
+            int j = (int)Math.floor(Math.random() * (i + 1));
+            Card tmp = this.deck.get(i);
+            this.deck.set(i, this.deck.get(j));
+            this.deck.set(j, tmp);
+        }
+    }
+}    
 
 class Main{
+        
     public static void main(String[] args){
 
-        ArrayList<Integer> intArr = new ArrayList<>(Arrays.asList(0,10,20,30,40,50,60,70,80,90,100));
-        // ここから記述してください。 
+        Deck deck1 = new Deck();
 
-        for(int i = intArr.size() - 1; i >= 0 ; i--){
+        // シャッフル後のデッキからカードを1枚ドローしてコンソールに出力してください。
+          //シャッフル
+        deck1.shuffleDeck();
 
-            int j = (int)Math.floor(Math.random() * (i + 1));
-            
-            int temp = intArr.get(i);
-            intArr.set(i,j);
-            intArr.set(j,temp);
-        }
-        // ランダムに入れ替えた後の配列
-        System.out.println(intArr);
+        //コンソールで確認
+        System.out.println(deck1.deck.get(deck1.deck.size() - 1).getCardString());
+        System.out.println(deck1.draw().getCardString()); 
     }
-}
 }
