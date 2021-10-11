@@ -3697,4 +3697,23 @@ class Solution{
 
         return test;
     }
+
+    public static Map<Integer,Integer> countMapHelper(String[] numbers){
+
+        HashMap<String,Integer> hand = new HashMap<>();
+
+        for(int i = 0 ; i < numbers.length ; i++){
+            if(hand.get(numbers[i]) == null)hand.put(numbers[i],1);
+            else hand.put(numbers[i] , hand.get(numbers[i]) + 1);
+        }
+
+        String[] context = {"A","K","Q","J","10","9","8","7","6","5","4","3","2"}; 
+        Map<Integer,Integer> test = new TreeMap<Integer,Integer>();
+        
+        for(int i = 0 ; i < context.length ; i++){
+            test.put(i + 1, hand.get(context[i]) == null ? 0 : hand.get(context[i]));
+        }
+
+        return test;
+    }
 }
