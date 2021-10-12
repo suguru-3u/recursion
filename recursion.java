@@ -3760,3 +3760,25 @@ class Main{
     }
     
     }
+
+    // 文字列の合体
+    // easy
+    // Valerie は与えられた文字カードを並べて、単語を作るカードゲームを開発しています。
+    // ゲーム中に、2 人のプレイヤーの手札を交互に並べる処理をつける予定です。
+    // 空白を含まない、サイズが同じ文字列 s1 と s2 が与えられるので、それぞれの手札のカードを s1->s2 の順序で交互に組み合わせる、
+    // mergeString という関数を再帰を使って作成してください。
+    class Solution{
+        public static String mergeString(String s1,String s2){
+            //ここから書きましょう
+    
+            return mergeStringHepler(s1,s2,0,"");
+        }
+    
+        public static String  mergeStringHepler(String s1,String s2,int index,String output){
+    
+            if(index == s1.length())return output;
+    
+            return mergeStringHepler(s1,s2,index + 1 ,output + s1.charAt(index) + s2.charAt(index));
+        }
+    }
+    
