@@ -3717,3 +3717,46 @@ class Solution{
         return test;
     }
 }
+
+// xになるまでの組み合わせ
+// medium
+// 自然数 x が与えられるので、1 または 2 を足し合わせて合計が x になる組み合わせの数を返す、numberOfWay という関数を作成してください。例えば、3 になる組み合わせは以下の通りです。
+
+public static int numberOfWay(int x){
+    if (x == 1) return 1;   // 1になる組み合わせ数は1
+    if (x == 2) return 2;   // 2になる組み合わせ数は2
+    // f(x) = f(x-1) + f(x-2)
+    return numberOfWay(x-1) + numberOfWay(x-2);
+}
+
+class Main{
+
+    public static String doubleSubstring(String str){
+        return str + str;
+    }
+    
+    public static void main(String[] args){
+        String str = "hello";
+        System.out.println(doubleSubstring(str).substring(1).indexOf("ll"));
+    
+        // doubleSubstring(str)は、文字列"hellohello"を返します。
+        // この文字列に対して、substringメソッドを使うことができ、"ellohello"を返します。
+        // さらにその返された文字列に対してindexOfメソッドを使って、"ll"をのインデックスを返すことができます。
+    
+        // 例題1
+        String mail = "recursion@info.com";
+    
+        // メソッドチェーンを使って、COMという大文字を出力してください。
+        String methodChin = mail.toUpperCase().substring(mail.indexOf(".") + 1);
+        System.out.println(methodChin);
+    
+        // メソッドチェーンを使って、%INFO.COMを出力してください。
+        String methodChin2 = "%" + mail.toUpperCase().substring(mail.indexOf("@") + 1);
+        System.out.println(methodChin2);
+    
+        // メソッドチェーンを使って、RecuRsionを出力してください。
+        String methodChin3 = mail.replace("r","R").substring(0,mail.indexOf("@"));
+        System.out.println(methodChin3);
+    }
+    
+    }
