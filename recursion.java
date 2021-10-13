@@ -3781,4 +3781,25 @@ class Main{
             return mergeStringHepler(s1,s2,index + 1 ,output + s1.charAt(index) + s2.charAt(index));
         }
     }
-    
+
+
+// 偶奇の入れ替え
+// easy
+// Stacey は文字の奇数番目と偶数番目を入れ替えても、単語や文章として成り立つのか気になりました。
+// 空白を含まない、サイズが偶数の文字列 s が与えられるので、インデックスの偶数番目と奇数番目を入れ替える、
+// swapPosition という関数を再帰を使って作成してください。
+
+class Solution{
+    public static String swapPosition(String s){
+        //ここから書きましょう
+
+        return swapPositionHelper(s,"",0);
+    }
+
+    public static String swapPositionHelper(String s , String output ,int index){
+
+        if(index >= s.length()) return output;
+
+        return swapPositionHelper(s,output + s.charAt(index + 1) + s.charAt(index),index + 2);
+    }
+}
