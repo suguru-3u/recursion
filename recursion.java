@@ -3803,3 +3803,49 @@ class Solution{
         return swapPositionHelper(s,output + s.charAt(index + 1) + s.charAt(index),index + 2);
     }
 }
+
+// はじめての大文字
+// easy
+// Gail は出版社で文章校正を担当しており、全て小文字にする予定の文章に大文字が混ざっていないか確認しています。
+// 文章 s が与えられるので、最初の大文字を返す、firstUppercase という関数を再帰を使って作成してください。
+// ただし、大文字が含まれない場合は、"No upper" と返してください。
+
+class Solution{
+    public static String firstUppercase(String s){
+        //ここから書きましょう
+
+        for(int i = 0; i < s.length() ; i++){
+            if(s.charAt(i) == s.toUpperCase().charAt(i))return String.valueOf(s.charAt(i));
+        }
+
+        return "No upper";
+    }
+
+    // インデックスを追跡する引数indexを追加します
+    public static String firstUppercaseHelper(String s, int index){
+        // indexが文字列サイズ以上になったら再帰終了です
+        if (index >= s.length()) return "No upper";
+        // 元の文字とupper関数で大文字に変換した文字が一致した場合、その文字を返します
+        if (s.charAt(index) == s.toUpperCase().charAt(index)) return String.valueOf(s.charAt(index));
+        // indexに1を加えて再帰します
+        return firstUppercaseHelper(s, index + 1);
+    }
+}
+
+// 掛け算（再帰）
+// easy
+// Yorke は計算機アプリを作成しており、掛け算を行う機能を追加しています。
+// この機能に拡張性をつけるために、再帰で掛け算の処理を行う予定です。整数 x、y が与えられるので、
+// x と y の掛け算の結果を返す、product という関数を再帰によって作成してください。
+
+class Solution{
+    public static int product(int x,int y){
+        //ここから書きましょう
+
+        return productHelper(x ,y);
+    }
+
+    public static int productHelper(int x , int y){
+        return x * y;
+    }
+}
