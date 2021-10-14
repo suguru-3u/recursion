@@ -3849,3 +3849,58 @@ class Solution{
         return x * y;
     }
 }
+
+// 文字列の長さ（再帰）
+// easy
+// Gerry は入力された文字の文字数をカウントするアプリを作成しています。このアプリに拡張性をつけるために、再帰で文字をカウントする予定です。入力された文字列 string が与えられるので、再帰を使って文字数を返す、
+// lenString という関数を作成してください。ただし、Python の len や、JavaScript の length は使わずに解いてください。
+
+class Solution{
+    public static int lenString(String string){
+        //ここから書きましょう
+        return lenStringHelper(string,"",0);
+    }
+
+    public static int lenStringHelper(String string,String cler,int index){
+
+        if(string == null || string.equals(cler))return index;
+
+        return lenStringHelper(string,cler + string.charAt(index),index + 1);
+    }
+}
+
+
+// 文字列の圧縮
+// medium
+// Hodge は文章を短く表示するアプリを作成しており、文字が連続して 2 回以上続く場合は文字を数字に置き換えようと考えています。
+// アルファベットで書かれた文字列 s が与えられるので、再帰を使って連続で続いた文字を数字に置き換える、stringCompression という関数を作成してください。
+
+class Solution{
+    public static String stringCompression(String s){
+        //ここから書きましょう
+        
+        return stringCompressionHelper(s,0,"");
+    }
+
+    public static String stringCompressionHelper(String s ,int index ,String res){
+
+        if(s.length() <= index)return res;
+
+        int count = stringCheak(s,index,s.charAt(index),index);
+   
+        if((count - index) == 1)res += "" + s.charAt(index);
+        else res += "" + s.charAt(index) + (count - index) ;
+
+        return stringCompressionHelper(s,count, res);
+        
+    }
+
+    public static int stringCheak(String s,int index,char t,int start){
+
+        if(s.length() <= index)return index;
+
+        else if(s.charAt(index) != t)return index;
+
+        return stringCheak(s,index + 1,t,start);
+    }
+}
