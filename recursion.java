@@ -4058,3 +4058,274 @@ public static String commonPrefixHelper(String s1,String s2,String output,int in
 
     return commonPrefixHelper(s1,s2,output + s1.charAt(index),index + 1);
 }
+
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        // 自分の得意な言語で
+        // Let's チャレンジ！！
+        Scanner sc = new Scanner(System.in);
+        String info = sc.nextLine();
+        System.out.println(info);
+        
+        int place = info.indexOf(" ");
+        int type = Integer.parseInt(info.substring(0,place));
+        
+        int goole = Integer.parseInt(info.substring(place + 1));
+        
+        int totalMax = 0;
+        int totalMin = 0;
+        in[] rsult = new int[type];
+        
+        for (int i = 0; i < type; i++) {
+            String sample = sc.next();
+            int result = getValue(sample,goole);
+            
+            
+            if(result > resultMax)totalMax = result;
+            if(result < resultMin)totalMin = result;
+        }
+        
+        System.out.println(totalMin + " " + totalMax);
+    }
+    
+    public static int getValue(String sample,int goole){
+        
+        int firstDistance = 0;
+        int firstPlace = 0;
+        int nextDistance = 0;
+        int nextPlace = 0;
+        String cutString = ""; 
+        
+        int place = sample.indexOf(" ");
+        firstDistance = Integer.parseInt(sample.substring(0,place));
+        
+        cutString = sample.substring(0,place);
+        place = cutString.indexOf(" ");
+        nextDistance = Integer.parseInt(cutString.substring(0,place));
+        
+        cutString = sample.substring(0,place);
+        place = cutString.indexOf(" ");
+        nextDistance = Integer.parseInt(cutString.substring(0,place));
+        
+        cutString = sample.substring(0,place);
+        place = cutString.indexOf(" ");
+        nextPlace = Integer.parseInt(cutString.substring(0,place));
+        
+        return calculationFara(firstDistance,firstPlace,nextDistance,nextPlace,goole)
+        }
+    }
+    
+     public static int calculationFara(int firstDistance,int firstPlace,int nextDistance,int nextPlace,int goole){
+     
+        if(goole >= firstDistance)return firstPlace;
+        
+        int emainingDistanc = goole - firstDistance;
+        if(nextDistance >= emainingDistanc)return firstPlace + nextPlace;
+        
+        return firstPlace + ((emainingDistanc / nextDistance) + 1) * nextPlace;
+        }
+    }
+}
+
+
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        // 自分の得意な言語で
+        // Let's チャレンジ！！
+        Scanner sc = new Scanner(System.in);
+        String info = sc.nextLine();
+        System.out.println(info);
+        
+        int place = info.indexOf(" ");
+        int type = Integer.parseInt(info.substring(0,place));
+        
+        int goole = Integer.parseInt(info.substring(place + 1));
+        
+        int totalMax = 0;
+        int totalMin = 0;
+        
+        for (int i = 0; i < type; i++) {
+            String sample = sc.next();
+            int result = getValue(sample,goole);
+            
+            
+            if(result > resultMax)totalMax = result;
+            if(result < resultMin)totalMin = result;
+        }
+        
+        System.out.println(totalMin + " " + totalMax);
+    }
+    
+    public static int getValue(String sample,int goole){
+        
+        int firstDistance = 0;
+        int firstPlace = 0;
+        int nextDistance = 0;
+        int nextPlace = 0;
+        String cutString = ""; 
+        
+        int place = sample.indexOf(" ");
+        firstDistance = Integer.parseInt(sample.substring(0,place));
+        
+        cutString = sample.substring(place + 1);
+        place = cutString.indexOf(" ");
+        nextDistance = Integer.parseInt(cutString.substring(0,place));
+        
+        cutString = sample.substring(place + 1);
+        place = cutString.indexOf(" ");
+        nextDistance = Integer.parseInt(cutString.substring(0,place));
+        
+        cutString = sample.substring(place + 1);
+        place = cutString.indexOf(" ");
+        nextPlace = Integer.parseInt(cutString.substring(0,place));
+        
+        return calculationFara(firstDistance,firstPlace,nextDistance,nextPlace,goole)
+        }
+    }
+    
+     public static int calculationFara(int firstDistance,int firstPlace,int nextDistance,int nextPlace,int goole){
+     
+        if(goole >= firstDistance)return firstPlace;
+        
+        int emainingDistanc = goole - firstDistance;
+        if(nextDistance >= emainingDistanc)return firstPlace + nextPlace;
+        
+        return firstPlace + ((emainingDistanc / nextDistance) + 1) * nextPlace;
+        }
+    }
+}
+
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        // 自分の得意な言語で
+        // Let's チャレンジ！！
+        Scanner sc = new Scanner(System.in);
+        String info = sc.nextLine();
+        System.out.println(info);
+        
+        int place = info.indexOf(" ");
+        int type = Integer.parseInt(info.substring(0,place));
+        
+        int goole = Integer.parseInt(info.substring(place + 1));
+        
+        int totalMax = 0;
+        int totalMin = 0;
+        
+        for (int i = 0; i < type; i++) {
+            String sample = sc.next();
+            int result = getValue(sample,goole);
+            
+            
+            if(result > resultMax)totalMax = result;
+            if(result < resultMin)totalMin = result;
+        }
+        
+        System.out.println(totalMin + " " + totalMax);
+    }
+    
+    public static int getValue(String sample,int goole){
+        
+        int firstDistance = 0;
+        int firstPlace = 0;
+        int nextDistance = 0;
+        int nextPlace = 0;
+        String cutString = ""; 
+        
+        int place = sample.indexOf(" ");
+        firstDistance = Integer.parseInt(sample.substring(0,place));
+        
+        cutString = sample.substring(place + 1);
+        place = cutString.indexOf(" ");
+        nextDistance = Integer.parseInt(cutString.substring(0,place));
+        
+        cutString = sample.substring(place + 1);
+        place = cutString.indexOf(" ");
+        nextDistance = Integer.parseInt(cutString.substring(0,place));
+        
+        cutString = sample.substring(place + 1);
+        place = cutString.indexOf(" ");
+        nextPlace = Integer.parseInt(cutString.substring(0,place));
+        
+        return calculationFara(firstDistance,firstPlace,nextDistance,nextPlace,goole)
+        }
+    }
+    
+     public static int calculationFara(int firstDistance,int firstPlace,int nextDistance,int nextPlace,int goole){
+     
+        if(goole >= firstDistance)return firstPlace;
+        
+        int emainingDistanc = goole - firstDistance;
+        if(nextDistance >= emainingDistanc)return firstPlace + nextPlace;
+        if(emainingDistanc % nextDistance == 0)return firstPlace + (emainingDistanc / nextDistance) * nextPlace;
+        else return firstPlace + ((emainingDistanc / nextDistance) + 1) * nextPlace;
+        }
+    }
+}
+
+
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        // 自分の得意な言語で
+        // Let's チャレンジ！！
+        Scanner sc = new Scanner(System.in);
+        String info = sc.nextLine();
+        
+        int place = info.indexOf(" ");
+        int type = Integer.parseInt(info.substring(0,place));
+        
+        int goole = Integer.parseInt(info.substring(place + 1));
+        
+        int totalMax = Integer.MIN_VALUE;
+        int totalMin = Integer.MAX_VALUE;
+        
+        int firstDistance = 0;
+        int firstPlace = 0;
+        int nextDistance = 0;
+        int nextPlace = 0;
+        
+        for (int i = 0; i < type; i++) {
+            firstDistance = sc.nextInt();
+            firstPlace = sc.nextInt();
+            nextDistance = sc.nextInt();
+            nextPlace = sc.nextInt();
+            
+            int result = calculationFara(firstDistance,firstPlace,nextDistance,nextPlace,goole);
+            
+            
+            if(result > totalMax)totalMax = result;
+            if(result < totalMin)totalMin = result;
+            
+        }
+        
+        System.out.println(totalMin + " " + totalMax);
+    }
+    
+    
+    public static int calculationFara(int firstDistance,int firstPlace,int nextDistance,int nextPlace,int goole){
+     
+        
+        if(firstDistance > goole)return firstPlace;
+        
+        int emainingDistanc = goole - firstDistance;
+        
+        if(nextDistance > emainingDistanc)return firstPlace + nextPlace;
+        if(emainingDistanc % nextDistance == 0)return firstPlace + (emainingDistanc / nextDistance) * nextPlace + nextPlace;
+        else return firstPlace + ((emainingDistanc / nextDistance) + 1) * nextPlace;
+        
+    }
+}
+
+
+
