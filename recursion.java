@@ -3956,3 +3956,84 @@ public static String divisorHelper(int number, int i) {
     if (number % i == 0) return String.valueOf(i) + '-' + divisorHelper(number, i+1);
     else return divisorHelper(number, i+1);
 }
+
+// ハミング距離（文字列）
+// very easy
+// Barbara は友達と伝言ゲームをすることにしました。
+// 最初の人が 1 つの英単語 string1 を伝達したのですが、最終的には string2 という英単語として伝わりました。
+// この 2 つの英単語の文字数は同じでしたが、果たしてどれくらいスペルの違いがあったでしょうか。
+// 2 つの文字列のハミング距離を返す、hammingDistanceInString という関数を作成してください。
+
+class Solution{
+    public static int hammingDistanceInString(String string1,String string2){
+        //ここから書きましょう
+
+        int count = 0;
+
+        for(int i = 0; i < string1.length(); i++){
+            if(string1.charAt(i) != string2.charAt(i))count++ ;
+        }
+
+        return count;
+    }
+}
+
+
+// カエサルの暗号
+// easy
+// 紀元前 70 年頃、古代ローマの軍事的指導者ガイウス・ユリウス・カエサル（Gaius Iulius Caesar）は
+// 秘密文書を敵に解読されないために文字列に含まれる全ての単語を数文字分シフトさせる方法を思いつきました。
+// 小文字によって構成された文字列 message、自然数 n が与えられるので、暗号を作成する caesarCipher という関数を作成してください。
+// z の次は a に戻ることに注意してください。また空白によってメッセージが読み取られないよう、返される文字列の空白は全て取り除いてください。
+
+class Solution{
+    public static String caesarCiper(String message,int n){
+        //ここから書きましょう
+
+        String output = "";
+        String changeMessage = message.replace(" ","");
+
+        for(int i = 0 ; i < changeMessage.length() ; i++){
+
+            output += converter(changeMessage.charAt(i), n % 26);
+
+        }
+        
+        return output;
+    }
+
+    public static char converter(char charcter,int n){
+        
+        int ascill = (int)charcter;
+        int shifted = ascill + n > 122 ? ascill + n - 26 : ascill + n;
+
+        return (char)shifted;
+    }
+}
+
+
+// 単語の逆表示
+// easy
+// Amuedo は全ての単語のスペルが反対になる世界に来てしまいました。
+// この世界で文章を読むためには、あらゆる単語のスペルを反対にしなければいけません。
+// 文章 sentence が与えられるので、各単語のみを逆向きに表示する、reverseWords という関数を作成してください。
+
+class Solution{
+    public static String reverseWords(String sentence){
+        //ここから書きましょう
+
+        String output = "";
+        String word = "";
+
+        for(int i = 0 ; i < sentence.length() ; i++){
+            if(sentence.charAt(i) == ' '){
+               output += word + " ";
+               word = "";
+            }else{
+                word = sentence.charAt(i) + word;
+            }
+        }
+
+        return output + word;
+    }
+}
