@@ -3904,3 +3904,55 @@ class Solution{
         return stringCheak(s,index + 1,t,start);
     }
 }
+
+// 回文
+// easy
+// Charly は友達と回文（後ろから読んでも前から読んでも同じ）をつくる遊びをしています。
+// 文字列 string を受け取り、それが回文になっている場合に true、そうでない場合には false を返す、
+// isPalindrome という関数を作成してください。ただし、ここではスペースを文字に含めず、大文字と小文字は同じものとみなします
+
+class Solution{
+    public static boolean isPalindrome(String stringInput){
+        //ここから書きましょう
+
+        String newString = stringInput.replace(" ","").toLowerCase();
+
+        int stringLength = newString.length();
+
+        for(int i = 0 ; i < stringLength / 2; i++){
+            if(newString.charAt(i) != newString.charAt(stringLength - (i + 1)))return false;
+        }
+        return true;
+    }
+}
+
+// 約数
+// easy
+// 天才小学生の Julia ちゃんは学校で出された約数を求める問題に対して 1 問 1 問素因数分解するのが面倒に感じたため、
+// 独自でプログラムを開発することにしました。ある数値 number が与えられるので、number の約数を小さい順に返す divisor という関数を再帰を使って定義してください。
+
+class Solution{
+    public static String divisor(int number){
+        //ここから書きましょう
+
+        String output = "";
+
+        for(int i = 1 ; i < number ; i++){
+            if(number % i == 0)output += i + "-";
+        }
+
+        return output += number;
+    }
+}
+
+public static String divisor(int number){
+    return divisorHelper(number, 1);
+}
+
+public static String divisorHelper(int number, int i) {
+    // iがnumberと等しくなったら再帰を終了する
+    if (number <= i) return String.valueOf(number);
+    // numberを割り切れる数の場合、文字列を追加する
+    if (number % i == 0) return String.valueOf(i) + '-' + divisorHelper(number, i+1);
+    else return divisorHelper(number, i+1);
+}
