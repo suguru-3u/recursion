@@ -4329,3 +4329,33 @@ public class Main {
 
 
 
+キャラクター操作
+easy
+Steele はシミレーションゲームで遊んでおり、4 方向（North, East, South, West）に 1 マスずつ指示出しすることでキャラクターを動かしています。
+コマンドを表す大文字の文字列 commands が与えられるので、指示出しを与えられた後の位置を配列で返す、characterLocation という関数を作成してください。
+ただし、キャラクターは原点（0,0）からスタートするとします。コマンドの進行方向は、N: y 方向に +1、E: x 方向に +1、W: x 方向に -1、S: y 方向に -1 となります。
+
+import java.util.Arrays;
+import java.util.HashMap;
+
+class Solution{
+    public static int[] characterLocation(String commands){
+        //ここから書きましょう
+        int[] location = new int[2];
+        HashMap<Character,int[]> place = new HashMap<>();
+        place.put('N',new int[]{0,1});
+        place.put('E',new int[]{1,0});
+        place.put('S',new int[]{0,-1});
+        place.put('W',new int[]{-1,0});
+
+
+        for(int i = 0 ; i < commands.length() ; i++){
+            if(place.get(commands.charAt(i)) != null){
+                location[0] += place.get(commands.charAt(i))[0];
+                location[1] += place.get(commands.charAt(i))[1];
+            }
+        }
+
+        return location;
+    }
+}
