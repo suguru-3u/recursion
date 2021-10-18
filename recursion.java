@@ -4395,3 +4395,29 @@ class Solution{
         return output;
     }
 }
+
+
+class Solution{
+    public static String leetify(String stringInput){
+        //ここから書きましょう
+        String output = "";
+
+        HashMap<Character,Integer> leet = new HashMap<>();
+        leet.put('A',4);
+        leet.put('B',8);
+        leet.put('E',3);
+        leet.put('L',1);
+        leet.put('O',0);
+        leet.put('S',5);
+        leet.put('T',7);
+        leet.put('Z',2);
+
+        for(int i = 0 ; i < stringInput.length(); i++){
+            char c = Character.toUpperCase(stringInput.charAt(i));
+            if(leet.get(c) != null)output += leet.get(c);
+            else output += stringInput.charAt(i);
+        }
+
+        return output;
+    }
+}
