@@ -4447,3 +4447,49 @@ class Solution{
         return output;
     }
 }
+
+
+<h1>Heading 1</h1>
+
+<!-- Hello Worldをh1タグで囲んで実行ボタンを押してみましょう。 -->
+<h1>Hello World</h1>AC
+
+<!-- 上のCSSのタブを押して、CSSを確認してみましょう。 -->
+<!-- red-textはCSSファイルにこちらがあらかじめ記述しています。 -->
+<h1 class="red-text">Heading 1</h1>
+
+<!-- Hello Worldをh1タグで囲んでクラス属性をred-textにしてみましょう。 -->
+<h1 class="red-text">Hello World</h1>
+
+
+<!-- 要素を取得し、その内部のHTMLを上書きします。リテラル、変数、関数出力の3つの例。 -->
+<div>
+   <p id="he">Hello Earth</p>
+   <p id="hp">Hello Pluto</p>
+   <p id="hm">Hello Mars</p>
+</div>
+
+<h1 id="page-title" class="red-text">Heading 1</h1>
+
+<!-- pタグは普通のテキストを表すタグです -->
+<p class="blue-text">Heading</p>
+<p class="red-text">Heading</p>
+
+<!-- red-textのように、同じclassを異なるタグに使うことが可能です。 -->
+<!-- 一方、page-titleのようなid属性を他のタグにつけることはできない点に注意しましょう。-->
+
+<p style="color:red;">Nice to meet you</p>
+<p style="color:red">Hello</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
