@@ -4482,9 +4482,40 @@ class Solution{
 <p style="color:red">Hello</p>
 
 
+/ Leetify
+// medium
+// 主に英語圏においてインターネット上で使われるアルファベットの表記法として Leet と呼ばれるものがあります。
+// これは一部のアルファベットを、一定の規則に基づき形の似た数字や記号などに置き換える表記法です。
+// Leet は単純に遊び心で使われる他、当局や著作権関連機関または初心者などの検索を回避する目的で使われることがありました。
+// ここでは、ある文字列 string が渡されるので、それを Leet で書き換える leetify という関数を作成してください。ただし変換するのは以下の文字が入力された際のみに限ります。
 
+import java.util.Arrays;
+import java.util.HashMap;
 
+class Solution{
+    public static String leetify(String stringInput){
+        //ここから書きましょう
+        String output = "";
 
+        HashMap<Character,Integer> leet = new HashMap<>();
+        leet.put('A',4);
+        leet.put('B',8);
+        leet.put('E',3);
+        leet.put('L',1);
+        leet.put('O',0);
+        leet.put('S',5);
+        leet.put('T',7);
+        leet.put('Z',2);
+
+        for(int i = 0 ; i < stringInput.length(); i++){
+            char c = Character.toUpperCase(stringInput.charAt(i));
+            if(leet.get(c) != null)output += leet.get(c);
+            else output += stringInput.charAt(i);
+        }
+
+        return output;
+    }
+}
 
 
 
