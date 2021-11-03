@@ -4540,5 +4540,34 @@ public class Main {
     }
 }
 
+// カエサルの暗号
+// easy
+// 紀元前 70 年頃、古代ローマの軍事的指導者ガイウス・ユリウス・カエサル（Gaius Iulius Caesar）は
+// 秘密文書を敵に解読されないために文字列に含まれる全ての単語を数文字分シフトさせる方法を思いつきました。
+// 小文字によって構成された文字列 message、自然数 n が与えられるので、暗号を作成する caesarCipher という関数を作成してください。
+// z の次は a に戻ることに注意してください。また空白によってメッセージが読み取られないよう、返される文字列の空白は全て取り除いてください。
 
+class Solution{
+    public static String caesarCiper(String message,int n){
+        //ここから書きましょう
 
+        String output = "";
+        String changeMessage = message.replace(" ","");
+
+        for(int i = 0 ; i < changeMessage.length() ; i++){
+
+            output += converter(changeMessage.charAt(i), n % 26);
+
+        }
+        
+        return output;
+    }
+
+    public static char converter(char charcter,int n){
+        
+        int ascill = (int)charcter;
+        int shifted = ascill + n > 122 ? ascill + n - 26 : ascill + n;
+
+        return (char)shifted;
+    }
+}
