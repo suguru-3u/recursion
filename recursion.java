@@ -4571,3 +4571,29 @@ class Solution{
         return (char)shifted;
     }
 }
+
+// 単語の逆表示
+// easy
+// Amuedo は全ての単語のスペルが反対になる世界に来てしまいました。
+// この世界で文章を読むためには、あらゆる単語のスペルを反対にしなければいけません。
+// 文章 sentence が与えられるので、各単語のみを逆向きに表示する、reverseWords という関数を作成してください。
+
+class Solution{
+    public static String reverseWords(String sentence){
+        //ここから書きましょう
+
+        String output = "";
+        String word = "";
+
+        for(int i = 0 ; i < sentence.length() ; i++){
+            if(sentence.charAt(i) == ' '){
+               output += word + " ";
+               word = "";
+            }else{
+                word = sentence.charAt(i) + word;
+            }
+        }
+
+        return output + word;
+    }
+}
