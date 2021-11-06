@@ -4597,3 +4597,23 @@ class Solution{
         return output + word;
     }
 }
+
+
+public static ArrayList<ArrayList<Card>> startGame(Table table) {
+
+        Deck deck = new Deck(table);
+        deck.shuffleDeck();
+        ArrayList<ArrayList<Card>> playerCards = new ArrayList<>();
+        
+        for (int i = 0; i < table.amountOfPlayers; i++) { 
+     
+            ArrayList<Card> playerHand = new ArrayList<Card>(initialCards(table.gameMode));     
+            for (int j = 0; j < initialCards(table.gameMode); j++) {
+                Card card1 = deck.draw();
+                playerHand.add(card1);
+            }
+            playerCards.add(playerHand);
+        }
+        
+        return playerCards;
+    }
