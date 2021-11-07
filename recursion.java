@@ -4598,22 +4598,32 @@ class Solution{
     }
 }
 
-
-public static ArrayList<ArrayList<Card>> startGame(Table table) {
-
-        Deck deck = new Deck(table);
-        deck.shuffleDeck();
-        ArrayList<ArrayList<Card>> playerCards = new ArrayList<>();
+class Solution{
+    public static String stringCompression(String s){
+        //ここから書きましょう
         
-        for (int i = 0; i < table.amountOfPlayers; i++) { 
-     
-            ArrayList<Card> playerHand = new ArrayList<Card>(initialCards(table.gameMode));     
-            for (int j = 0; j < initialCards(table.gameMode); j++) {
-                Card card1 = deck.draw();
-                playerHand.add(card1);
-            }
-            playerCards.add(playerHand);
-        }
-        
-        return playerCards;
+        return stringCompressionHelper(s,0,"");
     }
+
+    public static String stringCompressionHelper(String s ,int index ,String res){
+
+        if(s.length() <= index)return res;
+
+        int count = stringCheak(s,index,s.charAt(index),index);
+   
+        if((count - index) == 1)res += "" + s.charAt(index);
+        else res += "" + s.charAt(index) + (count - index) ;
+
+        return stringCompressionHelper(s,count, res);
+        
+    }
+
+    public static int stringCheak(String s,int index,char t,int start){
+
+        if(s.length() <= index)return index;
+
+        else if(s.charAt(index) != t)return index;
+
+        return stringCheak(s,index + 1,t,start);
+    }
+}
