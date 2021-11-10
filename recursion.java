@@ -4627,3 +4627,38 @@ class Solution{
         return stringCheak(s,index + 1,t,start);
     }
 }
+
+
+class Solution{
+    public static int[] intersectionOfArraysRepeats(int[] intList1,int[] intList2){
+        //ここから書きましょう
+        Map<Integer,Integer> number = new HashMap<>();
+        List<Integer> match = new ArrayList<Integer>();
+
+        for(int i = 0; i < intList1.length; i++){
+            if(number.get(intList1[i]) == null)number.put(intList1[i],1);
+            else number.replace(intList1[i],number.get(intList1[i]) + 1);
+        }
+
+        for(int i = 0; i < intList2.length; i++){
+            if(number.get(intList2[i]) != null){
+                if(number.get(intList2[i]) != 0){
+                    match.add(intList2[i]);
+                    number.replace(intList2[i],number.get(intList2[i]) -1);
+                }
+            }      
+        }
+
+        Collections.sort(match);
+        int[] intersection = new int[match.size()];
+
+        for(int i = 0; i < match.size(); i++){
+            intersection[i] = match.get(i);
+        }
+
+        return intersection;
+
+
+    }
+}
+
