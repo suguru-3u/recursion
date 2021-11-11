@@ -4662,3 +4662,28 @@ class Solution{
     }
 }
 
+class Solution{
+    public static boolean hasSameType(String user1,String user2){
+        //ここから書きましょう
+        HashMap<Character,Character> macth = new HashMap<Character,Character>();
+
+        if(user1.length() != user2.length())return false;
+
+        for(int i = 0; i < user1.length() ;i++){
+            macth.put(user1.charAt(i),user2.charAt(i));
+        }
+
+        for(int i = 0; i < user2.length() ; i++){
+            if(macth.get(user1.charAt(i)) != user2.charAt(i) )return false;
+        }
+
+        char d = '#';
+        for(char str : macth.values()) {
+            char e = str;
+			if(d == e)return false;
+            d = e;
+		}
+
+        return true;
+    }
+}
